@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "extends": ["standard", "plugin:react/recommended", "prettier", "prettier/react", "prettier/standard"],
+  "plugins": ["react", "prettier", "standard"],
+  "rules": {
+    "prettier/prettier": "error",
+    "space-before-function-paren": "off",
+    "react/prop-types": 1
+  }
+}

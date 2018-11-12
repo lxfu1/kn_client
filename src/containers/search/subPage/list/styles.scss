@@ -1,0 +1,48 @@
+.container {
+    width: 770px;
+    min-height: 500px;
+    padding: 10px;
+    .common {
+        width: 100%;
+        padding: 10px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #999;
+        h5 {
+            margin: 15px 0;
+            color: #333;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 700;
+            &:hover {
+               text-decoration: underline;
+            }
+        }
+        .items {
+            width: 100%;
+            .content {
+                height: 60px;
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+            .icons {
+                i {
+                    display: inline-block;
+                    color: #ccc;
+                    margin-right: 5px;
+                }
+                span {
+                    display: inline-block;
+                    margin-right: 10px;
+                    a {
+                        color: #999;
+                    }
+                }
+            }
+        }
+    }
+    .pagination {
+        display: flex;
+        margin-top: 10px;
+        justify-content: center;
+    }
+}

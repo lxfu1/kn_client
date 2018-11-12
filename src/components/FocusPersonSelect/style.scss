@@ -1,0 +1,44 @@
+.focus_select {
+  margin-top: 1px;
+  padding: 13px 15px 20px;
+  border: 1px solid #ec5657;
+  border-top-width: 0;
+  font-size: 12px;
+  width: 100%;
+  background-color: #fff;
+  div span {
+    display: inline-block;
+    margin: 15px 15px 3px;
+    cursor: pointer;
+  }
+  > div:first-child {
+    span {
+      display: inline-block;
+      width: 60px;
+      margin: 0px 15px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+  hr {
+    border: 1px solid #eee;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+}
+
+.area {
+  position: relative;
+  a {
+    position: absolute;
+    bottom: -7px;
+    left: 0;
+    width: 90px;
+    border-top: 2px solid #ec5657;
+    transition: all linear 0.2s;
+  }
+}
+
+.checked {
+  color: #ec5657;
+}

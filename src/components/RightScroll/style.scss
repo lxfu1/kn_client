@@ -1,0 +1,26 @@
+.rightScroll {
+    position: fixed;
+    right: 30px;
+    bottom: 10%;
+    .common {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        color: #2f2f2f;
+        border: 1px solid #dcdcdc;
+    }
+    .arrow {
+        display: inline-block;
+        width: 14px;
+        height: 14px;
+        margin-top: 7px;
+        border-top: 1px solid #2f2f2f;
+        border-right: 1px solid #2f2f2f;
+        transform: rotate(-45deg);
+    }
+}

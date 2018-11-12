@@ -1,0 +1,57 @@
+.detailContainer {
+  width: 1280px;
+  margin: 11px auto;
+  padding-bottom: 42px;
+
+  .bannerBox {
+    margin-bottom: 9px;
+
+    img {
+      width: 100%;
+      height: 190px;
+    }
+  }
+}
+.LeftBox {
+  display: inline-block;
+  width: 775px;
+  padding: 35px 54px 90px;
+  border: 1px solid #e0e7ed;
+  background: #fff;
+  word-wrap: break-word;
+
+  .titleBox {
+    font-size: 16px;
+    width: 527px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .sourceBox {
+    text-align: center;
+    margin: 12px 0 25px;
+    span {
+      font-size: 13px;
+      margin-left: 22px;
+      margin-right: 22px;
+    }
+  }
+  .oriBox {
+    img {
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    pre,
+    code {
+      display: block;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      word-break: break-all;
+    }
+  }
+  a {
+    text-decoration: underline;
+    color: #027ac5;
+  }
+}

@@ -1,0 +1,65 @@
+.listItem {
+  margin: 0;
+  padding: 22px 6px 12px;
+  border-bottom: 1px solid #e5e9ec;
+
+  &:last-child {
+    border-bottom: none;
+  }
+  .itemCaption {
+    .captionItem {
+      display: inline-block;
+      width: 65%;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+
+      &:hover {
+        color: #676767;
+      }
+    }
+    .sourceBox {
+      float: right;
+      width: 35%;
+      text-align: right;
+      white-space: nowrap;
+    }
+    .sourceIcon {
+      display: inline-block;
+      color: #fff;
+      background: #d01c0b;
+      padding: 0 5px;
+      border-radius: 3px;
+      font-size: 12px;
+    }
+    .sourceItem {
+      display: inline-block;
+      height: 16px;
+      line-height: 16px;
+      font-size: 14px;
+      padding: 0 5px;
+      max-width: 39%;
+      vertical-align: middle;
+      border-right: 2px solid #707070;
+    }
+    .sourceTime {
+      display: inline-block;
+      height: 16px;
+      line-height: 16px;
+      font-size: 14px;
+      padding: 0 5px;
+      vertical-align: text-bottom;
+    }
+  }
+  .itemContent {
+    margin-top: 17px;
+    font-size: 14px;
+    word-wrap: break-word;
+
+    .itemDIV {
+      display: inline-block;
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+}
