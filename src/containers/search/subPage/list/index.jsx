@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import {Facebook} from 'react-content-loader'
 import {message} from 'antd'
+import NoData from 'components/noData'
 import moment from 'moment'
 import Pagination from 'rc-pagination'
 import resource from 'util/resource'
 import styles from './styles.scss'
 
-class List extends Component {
+class Lists extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -14,7 +16,8 @@ class List extends Component {
             total: 0,
             page: 1,
             keyword: this.props.keyword,
-            type: this.props.type
+            type: this.props.type,
+            loading: true
         }
     }
 
@@ -22,14 +25,25 @@ class List extends Component {
         this.getList();
     }
 
+    componentWillReceiveProps(nextProps){
+        if(nextProps.keyword && this.props.keyword) {
+            this.setState({
+                page: 1,
+                keyword: nextProps.keyword
+            }, () => {
+                this.getList();
+            })
+        }
+    }
+
     getList = () => {
-        console.log(66);
         let {keyword, page, type} = this.state;
         resource.get(`/kn/search?page=${page}&size=10&keyword=${keyword}&type=${type}`).then(res => {
             if(res.status === 200){
                 this.setState({
                     articleList: res.data.rows,
-                    total: res.data.count
+                    total: res.data.count,
+                    loading: false
                 })
             }
         }).catch(err => {
@@ -47,14 +61,14 @@ class List extends Component {
     }
 
     render() {
-        let {articleList} = this.state;
+        let {articleList, loading} = this.state;
         return (
             <div className={styles.container}>
                 {
-                    articleList.map(item => {
+                    loading ? <Facebook /> : articleList.length > 0 ? articleList.map(item => {
                         return <div className={styles.common} key={item.articleId}>
                             <Link to={`/main/detail/${item.articleId}`} target="_blank">
-                               <h5>{item.title}</h5>
+                                <h5>{item.title}</h5>
                             </Link>
                             <div className={styles.items}>
                                 <p className={styles.content}>{item.introduction}</p>
@@ -74,7 +88,7 @@ class List extends Component {
                                 </div>
                             </div>
                         </div>
-                    })
+                    }) : <NoData />
                 }
                 <div className={styles.pagination} style={{display: this.state.total > 10 ? 'flex': 'none'}}>
                     <Pagination
@@ -89,4 +103,4 @@ class List extends Component {
     }
 }
 
-export default List
+export default Lists

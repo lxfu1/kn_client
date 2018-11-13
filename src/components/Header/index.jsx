@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, withRouter} from 'react-router-dom'
+import { NavLink, withRouter, Link} from 'react-router-dom'
 import { observer } from 'mobx-react';
 import {loginStore, personalStore} from '../../store/index';
 import style from './style.scss'
@@ -14,7 +14,7 @@ const NAV = [
         to: '/main/article'
     },
     {
-        name: 'Blog',
+        name: '发文',
         to: '/main/blog'
     }
 ];
@@ -38,11 +38,16 @@ class Header extends React.Component {
         super(props)
         this.state = {
             show: false,
-            postSearchValue: ""
+            postSearchValue: "",
+            searchHistory: this.getHistory(),
         }
     }
 
-    loginAction = (type, e) =>{
+    componentDidMount(){
+        document.body.addEventListener('click', this.blurInput, false);
+    }
+
+    loginAction = (type, e) => {
         loginStore.toggleLogin(true, type);
     }
 
@@ -50,8 +55,17 @@ class Header extends React.Component {
         sessionStorage.removeItem('user');
         loginStore.outUser();
         /*if (personalStore.pushHome() === 'home') {
-            this.props.history.push('/')
-        }*/
+         this.props.history.push('/')
+         }*/
+    }
+
+    getHistory = () => {
+        let res = [];
+        let history = localStorage.getItem('search');
+        if (history) {
+            res = JSON.parse(history);
+        }
+        return res;
     }
 
     searchValueChange = key => e => {
@@ -61,21 +75,23 @@ class Header extends React.Component {
     }
 
     onSearch = e => {
-        if (e) {
-            e.preventDefault()
-        }
+        e.stopPropagation();
         let {postSearchValue} = this.state;
-        if(!postSearchValue){
+        if (!postSearchValue) {
             return;
         }
         this.setHistory(postSearchValue);
-        this.props.history.push(`/main/search/${postSearchValue}/文章`)
+        this.setState({
+            focus: false,
+        },()=>{
+            this.props.history.push(`/main/search/${postSearchValue}/文章`);
+        })
     }
 
     setHistory = (keyword) => {
         let history = JSON.parse(localStorage.getItem('search') || '[]');
         let exist = history.findIndex(item => item === keyword);
-        if(exist === -1){
+        if (exist === -1) {
             history.unshift(keyword);
         }
         history.splice(4, history.length - 4);
@@ -83,7 +99,40 @@ class Header extends React.Component {
         localStorage.setItem('search', JSON.stringify(history))
     }
 
+    clearHistory = (e, item) => {
+        e.stopPropagation();
+        let history = [];
+        if(!item){
+            localStorage.setItem('search', '');
+        }else{
+            history = JSON.parse(localStorage.getItem('search') || '[]');
+            let exist = history.findIndex(inner => inner === item);
+            history.splice(exist, 1);
+            localStorage.setItem('search', JSON.stringify(history));
+        }
+        this.setState({
+            searchHistory: history
+        });
+    }
+
+    focusInput = (e) => {
+        e.stopPropagation();
+        this.setState({
+            focus: true,
+            searchHistory: this.getHistory()
+        })
+    }
+
+    blurInput = () => {
+        this.setState({focus: false})
+    }
+
+    componentWillUnmount(){
+        document.body.removeEventListener('click', this.blurInput, false);
+    }
+
     render() {
+        const {searchHistory, focus} = this.state;
         return (
             <div className={style.header}>
                 <span className={style.icon}>1·</span>
@@ -92,7 +141,8 @@ class Header extends React.Component {
                         {NAV.map(obj => {
                             return NavItem(obj)
                         })}
-                        <div className={style.postSearchInput}>
+                        <div className={style.postSearchInput}
+                             onClick={this.focusInput}>
                             <input
                                 type="text"
                                 value={this.state.postSearchValue}
@@ -100,9 +150,27 @@ class Header extends React.Component {
                                 placeholder="请输入文章标题"
                             />
                             <img
-                                src={require('./find2.png')}
+                                src={require('./sh.png')}
                                 onClick={this.onSearch}
                             />
+                            <div className={style.history}
+                                 style={{display: focus && searchHistory.length > 0 ? 'block' : 'none'}}>
+                                <div>
+                                    <div className={style.flexColumn}>
+                                        {
+                                            searchHistory.map(item => {
+                                                return <div className={style.flexRow} key={item}>
+                                                    <Link to={`/main/search/${item}/文章`}
+                                                          target="_blank">
+                                                        <span><i className="icon iconfont">&#xe632;</i>{item}</span>
+                                                    </Link>
+                                                    <i onClick={(e)=>{this.clearHistory(e,item)}}>x</i>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {
@@ -119,7 +187,7 @@ class Header extends React.Component {
                             <label onClick={this.loginOut}>
                                 退出
                             </label>
-                          </div> : <div className={style.loginInfo}>
+                        </div> : <div className={style.loginInfo}>
                             <i className="icon iconfont">&#xe688;</i>
                             <label onClick={(e)=>{this.loginAction('login',e)}}>
                                 登录
@@ -130,7 +198,7 @@ class Header extends React.Component {
                             <label onClick={(e)=>{this.loginAction('register',e)}}>
                                 注册
                             </label>
-                          </div>
+                        </div>
                     }
                 </div>
             </div>

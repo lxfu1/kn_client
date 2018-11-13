@@ -109,10 +109,14 @@ class HomeIndex extends Component {
                     <div className={style.hotList}>
                         <ul>
                             <li>
-                                <img src={HOT7} alt=""/>
+                                <Link to="/main/hot/h7">
+                                    <img src={HOT7} alt=""/>
+                                </Link>
                             </li>
                             <li>
-                                <img src={HOT30} alt=""/>
+                                <Link to="/main/hot/h30">
+                                    <img src={HOT30} alt=""/>
+                                </Link>
                             </li>
                             <li>
                                 <img src={LYLZ} alt=""/>

@@ -1,0 +1,18 @@
+.box {
+    position: relative;
+    width: 100%;
+    border: 1px solid #f0f0f0;
+    border-radius: 3px;
+    margin-bottom: 20px;
+    h5 {
+        width: 100%;
+        margin: 0;
+        padding: 10px;
+        background-color: #f7f7f7;
+        font-size: 16px;
+        color: #333;
+    }
+    .children {
+        padding: 15px;
+    }
+}

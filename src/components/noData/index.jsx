@@ -6,7 +6,7 @@ export default class NoData extends Component {
     return (
       <div className={style.noData}>
         <div className={style.img}></div>
-        <p className={style.font}>暂无数据</p>
+        <p className={style.font}>暂无数据, 换个条件试试？</p>
       </div>
     )
   }

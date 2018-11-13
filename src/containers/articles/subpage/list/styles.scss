@@ -19,13 +19,19 @@
         }
         .items {
             width: 100%;
-            img {
-                display: inline-block;
+            .imgBox {
+                display: flex;
                 width: 80px;
                 height: 80px;
                 margin-right: 15px;
-                border-radius: 50%;
+                align-items: center;
+                justify-content: center;
                 float: left;
+                img {
+                    display: inline-block;
+                    max-width: 80px;
+                    max-height: 80px;
+                }
             }
             >div {
                 display: inline-block;

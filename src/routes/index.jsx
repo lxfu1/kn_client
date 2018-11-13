@@ -7,6 +7,7 @@ import Blog from '../containers/blog'
 import App from '../containers/App'
 import Home from '../containers/Index'
 import Search from '../containers/search'
+import Hot from '../containers/hots'
 
 const routes = () => (
   <Router>
@@ -42,6 +43,12 @@ const routes = () => (
                <Route
                 path="/main/search/:keyword/:type"
                 component={Search}
+              />
+
+              {/*近日热度*/}
+               <Route
+                path="/main/hot/:type"
+                component={Hot}
               />
 
               {/* blog */}

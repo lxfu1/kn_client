@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
+import {Facebook} from 'react-content-loader'
 import {message} from 'antd'
 import moment from 'moment'
 import {HOST} from 'micro'
@@ -15,6 +16,7 @@ class List extends Component {
             articleList: [],
             total: 0,
             page: 1,
+            loading: true
         }
     }
 
@@ -27,7 +29,8 @@ class List extends Component {
             if(res.status === 200){
                 this.setState({
                     articleList: res.data.rows,
-                    total: res.data.count
+                    total: res.data.count,
+                    loading: false
                 })
             }
         }).catch(err => {
@@ -49,17 +52,19 @@ class List extends Component {
     }
 
     render() {
-        let {articleList} = this.state;
+        let {articleList, loading} = this.state;
         return (
             <div className={styles.container}>
                 {
-                    articleList.map(item => {
+                    loading ? <Facebook /> : articleList.map(item => {
                         return <div className={styles.common} key={item.articleId}>
                             <Link to={`/main/detail/${item.articleId}`} target="_blank">
-                               <h5>{item.title}</h5>
+                                <h5>{item.title}</h5>
                             </Link>
                             <div className={styles.items}>
-                                <img src={`${HOST}${item.fileUrl}`} onError={this.setDefault} alt=""/>
+                                <div className={styles.imgBox}>
+                                    <img src={`${HOST}${item.fileUrl}`} onError={this.setDefault} alt=""/>
+                                </div>
                                 <div>
                                     <p className={styles.content}>{item.introduction}</p>
                                     <div className={styles.icons}>

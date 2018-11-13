@@ -4,7 +4,7 @@ import {message} from 'antd'
 import moment from 'moment'
 import style from './style.scss'
 import resource from 'resource'
-import List from './subPage/list'
+import Lists from './subPage/list'
 
 const MENU = [
     {
@@ -66,6 +66,17 @@ class Search extends Component {
         return res;
     }
 
+    resetOption = (word) => {
+        let {keyword} = this.state;
+        if(word === keyword){
+            return;
+        }
+        keyword = word;
+        this.setState({
+            keyword
+        })
+    }
+
     getHots = () => {
         let {page, size} = this.state;
         resource.get(`/kn/searchHistory?page=${page}&size=${size}`).then(res => {
@@ -82,7 +93,8 @@ class Search extends Component {
         })
     }
 
-    clearHistory = (item) => {
+    clearHistory = (e, item) => {
+        e.stopPropagation();
         let history = [];
         if(!item){
             localStorage.setItem('search', '');
@@ -130,7 +142,8 @@ class Search extends Component {
                         <div className={style.flexRow}>
                             {
                                 hotSearch.map(item => {
-                                    return <Link key={item.keyword} to={`/main/search/${item.keyword}/${item.type}`}>
+                                    return <Link key={item.keyword}
+                                                 to={`/main/search/${item.keyword}/${item.type}`} target="_blank">
                                         {item.keyword}
                                     </Link>
                                 })
@@ -142,22 +155,22 @@ class Search extends Component {
                         <div className={style.header}>
                             <span>历史搜索</span>
                             <span className={style.control}
-                                  onClick={()=>{this.clearHistory('')}}>清空</span>
+                                  onClick={(e)=>{this.clearHistory(e)}}>清空</span>
                         </div>
                         <div className={style.flexColumn}>
                             {
                                 searchHistory.map(item => {
-                                    return <Link key={item} to={`/main/search/${item}/${type}`}>
+                                    return <div key={item} onClick={()=>{this.resetOption(item)}}>
                                         <span><i className="icon iconfont">&#xe632;</i>{item}</span>
-                                        <i onClick={()=>{this.clearHistory(item)}}>x</i>
-                                    </Link>
+                                        <i onClick={(e)=>{this.clearHistory(e,item)}}>x</i>
+                                    </div>
                                 })
                             }
                         </div>
                     </div>
                 </div>
                 <div className={style.right}>
-                    <List keyword={keyword} type={type} />
+                    <Lists keyword={keyword} type={type} />
                 </div>
             </div>
         )

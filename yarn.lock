@@ -7355,6 +7355,10 @@ rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-content-loader@^3.2.0:
+  version "3.2.0"
+  resolved "http://registry.npm.taobao.org/react-content-loader/download/react-content-loader-3.2.0.tgz#39a6a035a5dddc2270432c1df7950e37f179dcf2"
+
 react-cookie@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-2.1.2.tgz#f8005f4d39e0ac906371ec45d7ed519851222f81"
