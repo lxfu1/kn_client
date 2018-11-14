@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Button, message} from 'antd'
+import {Button, message, Modal} from 'antd'
 import style from './style.scss'
 import resource from 'util/resource'
 import {HOST} from 'micro'
@@ -10,10 +10,12 @@ export default class Blob extends Component {
         super(props);
         this.state = {
             types: [],
+            show: false,
+            typeName: '',
             sendData: {
                 title: '',
                 type: '',
-                introduction: ''
+                introduction: '',
             }
         }
     }
@@ -54,6 +56,7 @@ export default class Blob extends Component {
             }
         }
         params.append('detail', this.ueditor.getContent());
+        params.append('userId', sessionStorage.getItem('token'));
         resource.post('/kn/addArticle', params).then(res => {
             if (res.status === 200) {
                 message.success('添加成功');
@@ -71,6 +74,8 @@ export default class Blob extends Component {
         sendData[name] = value;
         this.setState({
             sendData
+        },()=>{
+            console.log(this.state.sendData);
         })
     }
 
@@ -107,8 +112,38 @@ export default class Blob extends Component {
         })
     }
 
+    setShow = () => {
+        this.setState({
+            show: true
+        })
+    }
+
+    handleOk = () => {
+        let {typeName} = this.state;
+        resource.post('/kn/addLabel', {labelName: typeName}).then(res => {
+            if (res.status === 200) {
+                this.setState({
+                    show: false,
+                    typeName: ''
+                },()=> {
+                    this.getTypes();
+                })
+            } else {
+                message.warning(res.message);
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    handleCancel = () => {
+        this.setState({
+            show: false
+        })
+    }
+
     render() {
-        const {types, sendData} = this.state;
+        const {types, sendData, show, typeName} = this.state;
         return (
             <div className={style.container}>
                 <div className={style.options}>
@@ -124,11 +159,13 @@ export default class Blob extends Component {
                         <select  value={sendData.type}
                                  onChange={(e)=>{this.setSendData('type', e.target.value)}}>
                             {
-                                types.map(item => {
-                                    return <option key={item.id} value={item.type}>{item.text}</option>
+                                types.map((item, index) => {
+                                    return <option key={item.labelId + index} value={item.labelId}>{item.text}</option>
                                 })
                             }
                         </select>
+                        <label className={style.addType}
+                        onClick={this.setShow}>类型不足？</label>
                     </div>
                     <div className={style.group}>
                         <span>简介：</span>
@@ -149,7 +186,6 @@ export default class Blob extends Component {
                 <ReactUeditor
                     getRef={this.getUeditor}
                     config={{
-                        zIndex: 99,
                         sourceEditor: false,
                         autoHeightEnabled: false,
                         initialFrameHeight: 250,
@@ -160,6 +196,22 @@ export default class Blob extends Component {
                     ueditorPath="lib/ueditor"
                     value=""
                 />
+                <Modal
+                    title="类型添加"
+                    visible={show}
+                    onOk={this.handleOk}
+                    okText="确认"
+                    cancelText="取消"
+                    onCancel={this.handleCancel}>
+                    <div className={style.group}>
+                        <span>类型：</span>
+                        <input type="text"
+                               className="inputType"
+                               value={typeName}
+                               onChange={(e)=>{this.setState({typeName: e.target.value})}}
+                        />
+                    </div>
+                </Modal>
             </div>
         )
     }

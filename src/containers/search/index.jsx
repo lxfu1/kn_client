@@ -35,6 +35,7 @@ class Search extends Component {
             size: 10,
             total: 0,
             keyword: this.props.match.params.keyword,
+            labelId: this.props.match.params.labelId,
             type: this.props.match.params.type || '文章',
         }
     }
@@ -114,7 +115,8 @@ class Search extends Component {
             hotSearch,
             searchHistory,
             keyword,
-            type
+            type,
+            labelId
             }= this.state;
         return (
             <div className={style.container}>
@@ -170,7 +172,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className={style.right}>
-                    <Lists keyword={keyword} type={type} />
+                    <Lists keyword={keyword} labelId={labelId} type={type} />
                 </div>
             </div>
         )

@@ -7,7 +7,6 @@ import RegisterModle from './subPage/registerModle'
 import ModifyModle from './subPage/modifyModle'
 import RegSuccess from './subPage/regSuccess'
 import FindSuccess from './subPage/findSuccess'
-import NotMatch from './subPage/notMatch'
 
 export default class Login extends Component {
     constructor(props){
@@ -42,8 +41,6 @@ export default class Login extends Component {
           return 320;
         case 'findSuccess':
           return 320;
-        case 'notMatch':
-          return 540;
       }
     }
 
@@ -61,10 +58,6 @@ export default class Login extends Component {
               return <RegSuccess changeModle={this.change} />;
             case 'findSuccess':
               return <FindSuccess changeModle={this.change} />;
-            case 'notMatch':
-              return <NotMatch changeModle={() => {
-                  this.props.cancel()
-                }} />;
         }
     };
 

@@ -70,7 +70,7 @@ class List extends Component {
                                     <div className={styles.icons}>
                                         <span>
                                             <i className="icon iconfont">&#xe688;</i>
-                                            <a href="">{item.author || '-'}</a>
+                                            <a href="">{item.user.username || '-'}</a>
                                         </span>
                                         <span>
                                              <i className="icon iconfont">&#xe722;</i>

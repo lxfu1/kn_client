@@ -17,6 +17,7 @@ class Lists extends Component {
             page: 1,
             keyword: this.props.keyword,
             type: this.props.type,
+            labelId: this.props.labelId,
             loading: true
         }
     }
@@ -26,9 +27,10 @@ class Lists extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.keyword && this.props.keyword) {
+        if(nextProps.keyword !== this.props.keyword && nextProps.labelId !== this.props.labelId) {
             this.setState({
                 page: 1,
+                labelId: nextProps.labelId,
                 keyword: nextProps.keyword
             }, () => {
                 this.getList();
@@ -37,7 +39,7 @@ class Lists extends Component {
     }
 
     getList = () => {
-        let {keyword, page, type} = this.state;
+        let {keyword, page, type, labelId} = this.state;
         resource.get(`/kn/search?page=${page}&size=10&keyword=${keyword}&type=${type}`).then(res => {
             if(res.status === 200){
                 this.setState({
@@ -73,6 +75,10 @@ class Lists extends Component {
                             <div className={styles.items}>
                                 <p className={styles.content}>{item.introduction}</p>
                                 <div className={styles.icons}>
+                                        <span>
+                                            <i className="icon iconfont">&#xe688;</i>
+                                            <a href="">{item.user.username || '-'}</a>
+                                        </span>
                                          <span>
                                              <i className="icon iconfont">&#xe722;</i>
                                             <a href="">{item.scans || 0}</a>

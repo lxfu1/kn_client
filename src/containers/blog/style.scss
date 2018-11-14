@@ -40,6 +40,19 @@ $w: 1200px;
         justify-content: space-between;
         align-items: center;
     }
+    .addType {
+        display: inline-block;
+        margin-left: 10px;
+        cursor: pointer;
+        padding: 2px 5px;
+        border: 1px solid #f0f0f0;
+        border-radius: 4px;
+        color: #333;
+        &:hover {
+            border-color: #40a9ff;
+            color: #40a9ff;
+        }
+    }
     .btns {
         display: flex;
         text-align: right;
@@ -47,4 +60,13 @@ $w: 1200px;
             margin-left: 20px;
         }
     }
+}
+:global(.inputType) {
+    width: 300px;
+    height: 26px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    outline: none;
+    color: #333;
+    padding-left: 5px;
 }

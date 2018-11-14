@@ -41,7 +41,7 @@ class HomeIndex extends Component {
     }
 
     getLabels = () => {
-        resource.get('/kn/articleTypes').then(res => {
+        resource.get('/kn/articleTypes?limit=20').then(res => {
             if (res.status === 200) {
                 this.setState({
                     labels: res.data
@@ -80,7 +80,7 @@ class HomeIndex extends Component {
                                             <div className={style.icons}>
                                                 <span>
                                                     <i className="icon iconfont">&#xe688;</i>
-                                                    <a href="">{item.author || '-'}</a>
+                                                    <a href="">{item.user.username || '-'}</a>
                                                 </span>
                                                 <span>
                                                      <i className="icon iconfont">&#xe722;</i>
@@ -129,9 +129,9 @@ class HomeIndex extends Component {
                                 labels.map(item => {
                                     return <Link
                                         className={style.labels}
-                                        to={`/main/search/${item.text}/文章`}
+                                        to={`/main/search/${item.text}/文章/${item.labelId}`}
                                         target="_blank"
-                                        key={item.id}>{item.text}</Link>
+                                        key={item.labelId}>{item.text}</Link>
                                 })
                             }
                         </div>

@@ -15,17 +15,19 @@ const NAV = [
     },
     {
         name: '发文',
-        to: '/main/blog'
+        to: '/main/blog',
+        need: true
     }
 ];
 
-const NavItem = ({ name, to }) => {
+const NavItem = ({ name, to, need}, username) => {
     return (
         <NavLink
             to={to}
             className={style.navItem}
             activeClassName={style.navItemActive}
             key={name + to}
+            style={{display: need && !username ? 'none' : 'inline-block'}}
         >
             {name}
         </NavLink>
@@ -43,7 +45,8 @@ class Header extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        loginStore.checkMember('mem');
         document.body.addEventListener('click', this.blurInput, false);
     }
 
@@ -53,10 +56,11 @@ class Header extends React.Component {
 
     loginOut = () => {
         sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token')
         loginStore.outUser();
-        /*if (personalStore.pushHome() === 'home') {
-         this.props.history.push('/')
-         }*/
+        if (location.href.indexOf('blog') !== -1) {
+            this.props.history.push('/')
+        }
     }
 
     getHistory = () => {
@@ -83,7 +87,7 @@ class Header extends React.Component {
         this.setHistory(postSearchValue);
         this.setState({
             focus: false,
-        },()=>{
+        }, ()=> {
             this.props.history.push(`/main/search/${postSearchValue}/文章`);
         })
     }
@@ -102,9 +106,9 @@ class Header extends React.Component {
     clearHistory = (e, item) => {
         e.stopPropagation();
         let history = [];
-        if(!item){
+        if (!item) {
             localStorage.setItem('search', '');
-        }else{
+        } else {
             history = JSON.parse(localStorage.getItem('search') || '[]');
             let exist = history.findIndex(inner => inner === item);
             history.splice(exist, 1);
@@ -127,19 +131,20 @@ class Header extends React.Component {
         this.setState({focus: false})
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         document.body.removeEventListener('click', this.blurInput, false);
     }
 
     render() {
         const {searchHistory, focus} = this.state;
+
         return (
             <div className={style.header}>
                 <span className={style.icon}>1·</span>
                 <div className={style.navBox}>
                     <div className={style.navList}>
                         {NAV.map(obj => {
-                            return NavItem(obj)
+                            return NavItem(obj, loginStore.userName)
                         })}
                         <div className={style.postSearchInput}
                              onClick={this.focusInput}>
