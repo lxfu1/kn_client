@@ -129,7 +129,7 @@ class HomeIndex extends Component {
                                 labels.map(item => {
                                     return <Link
                                         className={style.labels}
-                                        to={`/main/search/${item.text}/文章/${item.labelId}`}
+                                        to={`/main/search/${item.text}/${item.labelId}`}
                                         target="_blank"
                                         key={item.labelId}>{item.text}</Link>
                                 })

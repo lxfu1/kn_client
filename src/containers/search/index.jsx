@@ -35,7 +35,6 @@ class Search extends Component {
             size: 10,
             total: 0,
             keyword: this.props.match.params.keyword,
-            labelId: this.props.match.params.labelId,
             type: this.props.match.params.type || '文章',
         }
     }
@@ -116,7 +115,6 @@ class Search extends Component {
             searchHistory,
             keyword,
             type,
-            labelId
             }= this.state;
         return (
             <div className={style.container}>
@@ -145,7 +143,11 @@ class Search extends Component {
                             {
                                 hotSearch.map(item => {
                                     return <Link key={item.keyword}
-                                                 to={`/main/search/${item.keyword}/${item.type}`} target="_blank">
+                                                 to={
+                                                 item.type === '文章' ?
+                                                  `/main/search/${item.keyword}/文章`
+                                                  : `/main/search/文章/${item.type}`}
+                                                 target="_blank">
                                         {item.keyword}
                                     </Link>
                                 })
@@ -172,7 +174,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className={style.right}>
-                    <Lists keyword={keyword} labelId={labelId} type={type} />
+                    <Lists keyword={keyword} type={type} />
                 </div>
             </div>
         )

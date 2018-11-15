@@ -65,7 +65,7 @@ class Hot extends Component {
                                         <img src={item.headurl || HD} onError={this.setDefault} alt=""/>
                                         <div className={style.inner}>
                                             <p className={style.title}>{item.username}</p>
-                                            <p>发表文章： {item.articles}，评论： {item.commented}</p>
+                                            <p>发表文章： {item.articleCount}，评论： {item.commentCount}</p>
                                         </div>
                                     </div>
                                     <span className={style.attention}>+关注</span>

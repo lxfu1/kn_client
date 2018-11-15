@@ -17,7 +17,6 @@ class Lists extends Component {
             page: 1,
             keyword: this.props.keyword,
             type: this.props.type,
-            labelId: this.props.labelId,
             loading: true
         }
     }
@@ -27,11 +26,11 @@ class Lists extends Component {
     }
 
     componentWillReceiveProps(nextProps){
-        if(nextProps.keyword !== this.props.keyword && nextProps.labelId !== this.props.labelId) {
+        if(nextProps.keyword !== this.props.keyword) {
             this.setState({
                 page: 1,
-                labelId: nextProps.labelId,
-                keyword: nextProps.keyword
+                keyword: nextProps.keyword,
+                type: nextProps.type,
             }, () => {
                 this.getList();
             })
@@ -39,8 +38,12 @@ class Lists extends Component {
     }
 
     getList = () => {
-        let {keyword, page, type, labelId} = this.state;
-        resource.get(`/kn/search?page=${page}&size=10&keyword=${keyword}&type=${type}`).then(res => {
+        let {keyword, page, type} = this.state;
+        let url = `/kn/search?page=${page}&size=10&keyword=${keyword}&type=${type}`;
+        if(type !== '文章'){
+            url = `/kn/searchByType?page=${page}&size=10&labelId=${type}&keyword=${keyword}`
+        }
+        resource.get(url).then(res => {
             if(res.status === 200){
                 this.setState({
                     articleList: res.data.rows,

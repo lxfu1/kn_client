@@ -41,7 +41,7 @@ const routes = () => (
 
               {/*搜索*/}
                <Route
-                path="/main/search/:keyword/:type/:labelId?"
+                path="/main/search/:keyword/:type"
                 component={Search}
               />
 
