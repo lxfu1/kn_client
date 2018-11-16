@@ -56,7 +56,6 @@ export default class Blob extends Component {
             }
         }
         params.append('detail', this.ueditor.getContent());
-        params.append('userId', sessionStorage.getItem('token'));
         resource.post('/kn/addArticle', params).then(res => {
             if (res.status === 200) {
                 message.success('添加成功');
