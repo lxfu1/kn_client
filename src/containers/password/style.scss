@@ -1,0 +1,49 @@
+/*jhx*/
+.lists {
+  float: right;
+  width: 150px;
+  background: rgb(255, 255, 255);
+  box-shadow: #ccc 0px 0px 10px;
+  display: block;
+  margin-right: 35px;
+  > li {
+    padding: 14px;
+    cursor: pointer;
+  }
+}
+
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #969696;
+}
+
+.content {
+  padding: 50px 50px 30px;
+  input {
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+    height: 40px;
+    margin: 10px 0;
+    padding-left: 5px;
+    outline: none;
+    width: 100%;
+  }
+}
+
+.btns {
+  text-align: center;
+  > button {
+    margin: 14px 11px 0;
+    width: 74px;
+    border: none;
+    background: #c8c8c8;
+    height: 30px;
+    color: #ffffff;
+    border-radius: 3px;
+  }
+  button:nth-child(2) {
+    background: #ea6f5a;
+  }
+}
