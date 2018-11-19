@@ -3,6 +3,7 @@ import { NavLink, withRouter, Link } from 'react-router-dom'
 import { observer } from 'mobx-react'
 import { loginStore, personalStore } from '../../store/index'
 import style from './style.scss'
+import Password from '../../containers/password'
 
 const NAV = [
   {
@@ -46,6 +47,8 @@ class Header extends React.Component {
     this.state = {
       show: false,
       postSearchValue: '',
+      mouser: 'none',
+      showAlert: '',
       searchHistory: this.getHistory()
     }
   }
@@ -143,8 +146,36 @@ class Header extends React.Component {
     document.body.removeEventListener('click', this.blurInput, false)
   }
 
+  handleMouseMove = () => {
+    this.setState({
+      mouser: 'block'
+    })
+  }
+
+  handleMouseOut = () => {
+    this.setState({
+      mouser: 'none'
+    })
+  }
+
+  handleModal = () => {
+    let state = this.state
+
+    state.showAlert = (
+      <Password status={true} handleCancel={this.handleCancel} />
+    )
+    this.setState(state)
+  }
+
+  handleCancel = e => {
+    let state = this.state
+
+    state.showAlert = ''
+    this.setState(state)
+  }
+
   render() {
-    const { searchHistory, focus } = this.state
+    const { searchHistory, focus, mouser, showAlert } = this.state
 
     return (
       <div className={style.header}>
@@ -198,7 +229,11 @@ class Header extends React.Component {
             </div>
           </div>
           {loginStore.userName ? (
-            <div className={style.loginInfo}>
+            <div
+              className={style.loginInfo}
+              onMouseMove={this.handleMouseMove}
+              onMouseOut={this.handleMouseOut}
+            >
               <i className="icon iconfont">&#xe688;</i>
               <label>{loginStore.userName}</label>
               <label className={style.split}>/</label>
@@ -225,6 +260,20 @@ class Header extends React.Component {
             </div>
           )}
         </div>
+        <div className={style.outhover}>
+          <ul
+            className={style.lists}
+            style={{ display: mouser }}
+            onMouseMove={this.handleMouseMove}
+            onMouseOut={this.handleMouseOut}
+          >
+            <li>个人中心</li>
+            <li>我的关注</li>
+            <li onClick={this.handleModal}>密码修改</li>
+          </ul>
+        </div>
+
+        {showAlert}
       </div>
     )
   }
