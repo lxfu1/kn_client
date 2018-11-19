@@ -47,3 +47,12 @@
     background: #ea6f5a;
   }
 }
+
+:global{
+  .ant-modal-mask{
+    background:rgba(0,0,0,0.3);
+  }
+  .ant-modal{
+    margin-top: 8%;
+  }
+}
