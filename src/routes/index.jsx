@@ -8,6 +8,9 @@ import App from '../containers/App'
 import Home from '../containers/Index'
 import Search from '../containers/search'
 import Hot from '../containers/hots'
+// 后台管理
+import AdminSystem from '../containers/adminSystem/index'
+import ArticleManage from '../containers/adminSystem/articleManage'
 
 const routes = () => (
   <Router>
@@ -27,37 +30,40 @@ const routes = () => (
               <Route path="/main/home" component={Home} />
 
               {/* 文章 */}
+              <Route path="/main/article" exact component={Article} />
+              {/* 文章详情 */}
               <Route
-                path="/main/article"
-                exact
-                component={Article}
-              />
-              {/*文章详情*/}
-               <Route
                 path="/main/detail/:articleId"
                 exact
                 component={ArticleDetail}
               />
 
-              {/*搜索*/}
-               <Route
-                path="/main/search/:keyword/:type"
-                component={Search}
-              />
+              {/* 搜索 */}
+              <Route path="/main/search/:keyword/:type" component={Search} />
 
-              {/*近日热度*/}
-               <Route
-                path="/main/hot/:type"
-                component={Hot}
-              />
+              {/* 近日热度 */}
+              <Route path="/main/hot/:type" component={Hot} />
 
               {/* blog */}
-              <Route
-                path="/main/blog"
-                component={Blog}
-              />
+              <Route path="/main/blog" component={Blog} />
             </Switch>
           </App>
+        )}
+      />
+      {/* 后台管理 */}
+      <Route
+        path="/admin"
+        component={props => (
+          <AdminSystem {...props}>
+            <Switch>
+              <Route
+                path="/admin"
+                exact={true}
+                render={() => <Redirect to="/admin/article" />}
+              />
+              <Route path="/admin/article" component={ArticleManage} />
+            </Switch>
+          </AdminSystem>
         )}
       />
     </Switch>

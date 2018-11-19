@@ -18,6 +18,11 @@ const NAV = [
     name: '发文',
     to: '/main/blog',
     need: true
+  },
+  {
+    name: '后台管理',
+    to: '/admin'
+    // need: true
   }
 ]
 
@@ -168,6 +173,7 @@ class Header extends React.Component {
     state.showAlert = ''
     this.setState(state)
   }
+
   render() {
     const { searchHistory, focus, mouser, showAlert } = this.state
 
