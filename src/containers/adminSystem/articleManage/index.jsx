@@ -50,6 +50,7 @@ export default class ArticleManage extends Component {
           .then(res => {
             if (res.status === 200) {
               message.success('删除成功')
+              this.getArctilesList()
             } else {
               throw new Error('删除失败')
             }
