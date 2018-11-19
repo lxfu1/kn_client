@@ -30,9 +30,8 @@ export default class AdminSystem extends Component {
             <div className="logo" />
             <Menu
               theme="blue"
-              defaultSelectedKeys={['1']}
               mode="inline"
-              selectedKeys={this.state.navLink}
+              selectedKeys={[this.state.navLink]}
               onClick={this.linkTo}
             >
               <Menu.Item key="/admin/article">

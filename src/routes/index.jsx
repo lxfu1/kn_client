@@ -11,6 +11,7 @@ import Hot from '../containers/hots'
 // 后台管理
 import AdminSystem from '../containers/adminSystem/index'
 import ArticleManage from '../containers/adminSystem/articleManage'
+import ArticleEdit from '../containers/adminSystem/articleManage/articleEdit'
 
 const routes = () => (
   <Router>
@@ -61,7 +62,8 @@ const routes = () => (
                 exact={true}
                 render={() => <Redirect to="/admin/article" />}
               />
-              <Route path="/admin/article" component={ArticleManage} />
+              <Route path="/admin/article" exact component={ArticleManage} />
+              <Route path="/admin/article/edit/:id" component={ArticleEdit} />
             </Switch>
           </AdminSystem>
         )}

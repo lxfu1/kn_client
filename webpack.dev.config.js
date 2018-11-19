@@ -30,7 +30,7 @@ module.exports = webpackMerge(baseConfig, {
   devServer: {
     disableHostCheck: true,
     historyApiFallback: true,
-    port: 12343, // 配置端口号
+    port: 12341, // 配置端口号
     host: '0.0.0.0',
     noInfo: false,
     contentBase: './', // 配置文件的根目录
