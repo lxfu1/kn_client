@@ -1,0 +1,24 @@
+.Search {
+  width: 500px;
+  margin: 50px auto;
+}
+
+.title {
+  cursor: pointer;
+}
+
+.operation {
+  span {
+    cursor: pointer;
+    margin: 0 5px;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  span:first-child {
+    background-color: skyblue;
+  }
+  span:nth-child(2) {
+    background-color: orange;
+  }
+}
