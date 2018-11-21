@@ -37,7 +37,7 @@ class MyState {
 
     @action.bound
     rememberPw(obj) {
-        setCookie('mem', JSON.stringify(obj), 10 * 1000 * 6 * 60 * 24 * 30)
+        setCookie('mem', JSON.stringify(obj), 7 * 24 * 60 * 60 * 1000)
     }
 
     @action

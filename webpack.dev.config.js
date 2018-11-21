@@ -9,7 +9,8 @@ const workDir = path.resolve('.')
 
 const local = false
 
-const knHost = 'http://192.168.2.54:3000'
+const knHost = 'http://192.168.105.62:3000'
+// const knHost = 'http://192.168.2.54:3000'
 
 module.exports = webpackMerge(baseConfig, {
   entry: {
@@ -131,6 +132,6 @@ module.exports = webpackMerge(baseConfig, {
         NODE_ENV: JSON.stringify('development')
       }
     }),
-    new OpenBrowserWebpackPlugin({ url: 'http://localhost:12347' })
+    new OpenBrowserWebpackPlugin({ url: 'http://localhost:12341' })
   ]
 })
