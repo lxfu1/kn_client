@@ -1,24 +1,20 @@
-import React, {Component} from "react"
-import {NavLink} from 'react-router-dom'
-import style from '../style.scss'
-import resource from '.././../../util/resource'
-import Validator from '.././../../util/Validator'
-import {LOGINSERVICES} from 'micro'
+import React, { Component } from 'react';
+import { message } from 'antd';
+import style from '../style.scss';
+import resource from '.././../../util/resource';
+import Validator from '.././../../util/Validator';
 
 export default class RegisterModle extends Component {
-
     constructor(props) {
         super(props);
         this.uuid = '';
         this.check = new Validator();
         this.time = null;
         this.interval = null;
-        this.codeId = null;
         this.state = {
             count: 60,
             src: '',
             regMsg: '',
-            getCode: false,
             text: '获取验证码',
             times: null,
             registerData: {
@@ -29,9 +25,10 @@ export default class RegisterModle extends Component {
                 phonecode: '',
                 repassword: '',
                 username: '',
-                uuid: ''
+                uuid: '',
+                messageCode: ''
             }
-        }
+        };
     }
 
     componentDidMount() {
@@ -41,73 +38,75 @@ export default class RegisterModle extends Component {
     register = () => {
         let ver = this.check.checkRule('verify');
         if (ver) {
-            let {registerData} = this.state;
-            registerData.codeIdd = this.codeId;
-            resource.post('/kn/register', this.state.registerData).then((res) => {
+            let { registerData } = this.state;
+            if (registerData.password !== registerData.repassword) {
+                message.warning('密码不一致');
+                return;
+            }
+            resource.post('/kn/register', registerData).then(res => {
                 if (res.status === 200) {
-                    this.props.changeModle('regSuccess')
+                    this.props.changeModle('regSuccess');
                 } else {
                     this.setState({
                         regMsg: res.message
-                    })
-                    this.sleep(2000);
+                    });
+                    this.sleep(5000);
                 }
-            })
+            });
         }
     };
 
-    //获取手机验证码
-    getPhoneCode = ()=> {
-        if (this.state.getCode) {
-            return;
-        }
+    // 获取手机验证码
+    getPhoneCode = () => {
         let phone = this.state.registerData.phone;
 
         if (!/^1[34578]\d{9}$/.test(phone)) {
+            message.warning('请输入正确的手机号');
             return;
         }
-        resource.get(`/kn/getMessageCode/${phone}`).then((res) => {
+        resource.get(`/kn/getMessageCode/${phone}`).then(res => {
             if (res.status === 200) {
                 this.state.registerData.messageCode = '';
-                this.refs.codePhone.value = '';
-                this.codeId = res.data.codeId;
-                this.setState({
-                    text: '60s',
-                    times: true,
-                    registerData: this.state.registerData
-                }, ()=> {
-                    this.setInter();
-                })
+                this.setState(
+                    {
+                        text: '60s',
+                        times: true,
+                        registerData: this.state.registerData
+                    },
+                    () => {
+                        this.setInter();
+                    }
+                );
             } else {
                 this.setState({
                     regMsg: res.message
-                })
-                this.sleep(2000);
+                });
+                this.sleep(5000);
             }
         });
     };
 
-    //设置发送参数
-    setData = (e) => {
+    // 设置发送参数
+    setData = e => {
         this.state.registerData[e.target.getAttribute('name')] = e.target.value;
         this.setState({
             registerData: this.state.registerData
-        })
+        });
     };
 
-    sleep = (time) => {
+    sleep = time => {
         if (this.time) {
             return;
         }
-        this.time = setTimeout(()=> {
+        this.time = setTimeout(() => {
             this.time = null;
             this.setState({
                 regMsg: ''
-            })
-        }, time)
+            });
+        }, time);
     };
 
-    setInter = ()=> {
+    setInter = () => {
         let t = this.state.count;
         this.interval = setInterval(() => {
             t -= 1;
@@ -139,37 +138,88 @@ export default class RegisterModle extends Component {
                 background: '#737373',
                 cursor: 'not-allowed',
                 border: '1px solid #737373'
-            }
+            };
         }
         return (
             <div className={style.loginBox}>
                 <h5 className={style.title}>注册</h5>
                 <div className={style.registerItem} id="verify">
-                    <input type="text" className="e-validator" name="username" data-options="require"
-                           onChange={(e)=>{this.setData(e)}} placeholder="昵称"/>
-                    <input type="text" className="e-validator" name="phone" data-options="require phone"
-                           onChange={(e)=>{this.setData(e)}} placeholder="手机号码"/>
+                    <input
+                        type="text"
+                        className="e-validator"
+                        name="username"
+                        data-options="require"
+                        onChange={this.setData}
+                        placeholder="昵称"
+                    />
+                    <input
+                        type="text"
+                        className="e-validator"
+                        name="phone"
+                        data-options="require phone"
+                        onChange={this.setData}
+                        placeholder="手机号码"
+                    />
                     <div className={style.codeBox}>
-                        <input type="text" ref="codePhone" className="e-validator" name="messageCode"
-                               data-options="require number" onChange={(e)=>{this.setData(e)}} placeholder="手机验证码"/>
+                        <input
+                            type="text"
+                            className="e-validator"
+                            name="messageCode"
+                            data-options="require number"
+                            onChange={this.setData}
+                            placeholder="手机验证码"
+                        />
                         <div className={style.codeImg}>
-                            <button style={codeStyle}
-                                    onClick={this.state.times ? null : ()=>{this.getPhoneCode()}}>{this.state.text}</button>
+                            <button
+                                style={codeStyle}
+                                onClick={
+                                    this.state.times
+                                        ? null
+                                        : () => {
+                                              this.getPhoneCode();
+                                          }
+                                }
+                            >
+                                {this.state.text}
+                            </button>
                         </div>
                     </div>
-                    <input type="password" className="e-validator" name="password" data-options="require pw"
-                           onChange={(e)=>{this.setData(e)}} placeholder="密码，6~20位"/>
-                    <input type="password" className="e-validator" name="repassword" data-options="require pw"
-                           onChange={(e)=>{this.setData(e)}} placeholder="重复密码"/>
+                    <input
+                        type="password"
+                        className="e-validator"
+                        name="password"
+                        data-options="require pw"
+                        onChange={this.setData}
+                        placeholder="密码，6~20位"
+                    />
+                    <input
+                        type="password"
+                        className="e-validator"
+                        name="repassword"
+                        data-options="require pw"
+                        onChange={this.setData}
+                        placeholder="重复密码"
+                    />
                     <p className={style.errTip}>{this.state.regMsg}</p>
-                    <button className={style.loginAction} style={{marginTop: '5px'}} onClick={this.register}>立即注册
+                    <button
+                        className={style.loginAction}
+                        style={{ marginTop: '5px' }}
+                        onClick={this.register}
+                    >
+                        立即注册
                     </button>
                     <div className={style.moreMessage}>
                         <label>已有账户？</label>
-                        <span onClick={()=>{this.props.changeModle('login')}}>立即登录</span>
+                        <span
+                            onClick={() => {
+                                this.props.changeModle('login');
+                            }}
+                        >
+                            立即登录
+                        </span>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }

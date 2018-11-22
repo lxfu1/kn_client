@@ -1,0 +1,50 @@
+.container {
+    width: 100%;
+    min-height: 500px;
+    padding: 10px;
+
+    .flexRow {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #f0f0f0;
+        .flexEnd {
+            display: flex;
+            align-items: center;
+        }
+        img {
+            display: inline-block;
+            width: 52px;
+            height: 52px;
+            margin-right: 10px;
+            border-radius: 50%;
+        }
+        .inner {
+            display: inline-block;
+            padding-bottom: 5px;
+            p {
+                margin: 0;
+                font-size: 13px;
+                color: #969696;
+            }
+            p.title {
+                color: #333;
+                font-size: 15px;
+                font-weight: 700;
+            }
+        }
+        .attention {
+            color: #8c8c8c;
+            cursor: pointer;
+        }
+    }
+    .pagination {
+        display: flex;
+        margin-top: 10px;
+        justify-content: center;
+    }
+}

@@ -16,12 +16,15 @@ $borderColor: #c8c8c8;
             font-size: 18px;
             color: #969696;
         }
-        .loginItem, .registerItem, .findItem {
+        .loginItem,
+        .registerItem,
+        .findItem {
             position: relative;
             width: 100%;
             height: auto;
             font-size: 14px;
-            input[type='text'], input[type='password'] {
+            input[type='text'],
+            input[type='password'] {
                 border: 1px solid $borderColor;
                 border-radius: 4px;
                 height: 40px;
@@ -127,7 +130,8 @@ $borderColor: #c8c8c8;
             }
         }
         .registerItem {
-            input[type='text'], input[type='password'] {
+            input[type='text'],
+            input[type='password'] {
                 border-color: #ccc;
                 width: 100%;
             }
@@ -149,7 +153,8 @@ $borderColor: #c8c8c8;
                     text-align: center;
                     line-height: 40px;
                 }
-                input[type='text'], input[type='password'] {
+                input[type='text'],
+                input[type='password'] {
                     display: inline-block;
                     width: 100%;
                     margin: 0;
@@ -162,11 +167,10 @@ $borderColor: #c8c8c8;
         }
         .findItem {
             padding-top: 25px;
-            input[type='text'], input[type='password'] {
+            input[type='text'],
+            input[type='password'] {
+                width: 100%;
                 border: 1px solid #ccc;
-            }
-            #inputs {
-                width: 100% !important;
             }
         }
     }

@@ -8,6 +8,7 @@ import App from '../containers/App'
 import Home from '../containers/Index'
 import Search from '../containers/search'
 import Hot from '../containers/hots'
+import Personal from '../containers/personal'
 // 后台管理
 import AdminSystem from '../containers/adminSystem/index'
 import ArticleManage from '../containers/adminSystem/articleManage'
@@ -41,6 +42,9 @@ const routes = () => (
 
               {/* 搜索 */}
               <Route path="/main/search/:keyword/:type" component={Search} />
+
+              {/* 个人中心 */}
+              <Route path="/main/personal" component={Personal} />
 
               {/* 近日热度 */}
               <Route path="/main/hot/:type" component={Hot} />

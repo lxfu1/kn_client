@@ -4,7 +4,6 @@ import style from './style.scss'
 import LoginModle from './subPage/loginModle'
 import FindModle from './subPage/findModle'
 import RegisterModle from './subPage/registerModle'
-import ModifyModle from './subPage/modifyModle'
 import RegSuccess from './subPage/regSuccess'
 import FindSuccess from './subPage/findSuccess'
 
@@ -32,11 +31,9 @@ export default class Login extends Component {
         case 'login':
           return 430;
         case 'find':
-          return 430;
+          return 490;
         case 'register':
           return 510;
-        case 'modify':
-          return 400;
         case 'regSuccess':
           return 320;
         case 'findSuccess':
@@ -52,8 +49,6 @@ export default class Login extends Component {
               return <FindModle changeModle={this.change}  />;
             case 'register':
               return <RegisterModle changeModle={this.change} />;
-            case 'modify':
-              return <ModifyModle changeModle={this.change} data={this.state.modifyData} />;
             case 'regSuccess':
               return <RegSuccess changeModle={this.change} />;
             case 'findSuccess':

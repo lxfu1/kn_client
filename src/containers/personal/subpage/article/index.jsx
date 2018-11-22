@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { message } from 'antd';
+import { message, Modal } from 'antd';
 import { Facebook } from 'react-content-loader';
 import moment from 'moment';
 import { HOST } from 'micro';
@@ -8,11 +8,12 @@ import Pagination from 'rc-pagination';
 import resource from 'util/resource';
 import style from './styles.scss';
 
+const confirm = Modal.confirm;
 class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            hotList: [],
+            list: [],
             total: 0,
             page: 1,
             loading: true
@@ -25,16 +26,20 @@ class List extends Component {
 
     getList = () => {
         let { page } = this.state;
-        let type = this.props.type === 'h7' ? 7 : 30;
         resource
-            .get(`/kn/searchByTime?page=${page}&size=10&type=${type}`)
+            .get(`/kn/searchByPersonal?page=${page}&size=10`)
             .then(res => {
                 if (res.status === 200) {
-                    this.setState({
-                        hotList: res.data.rows,
-                        total: res.data.count,
-                        loading: false
-                    });
+                    this.setState(
+                        {
+                            list: res.data.rows,
+                            total: res.data.count,
+                            loading: false
+                        },
+                        () => {
+                            this.props.callback(res.data.count);
+                        }
+                    );
                 }
             })
             .catch(err => {
@@ -54,15 +59,41 @@ class List extends Component {
         );
     };
 
+    /**
+     * 文章删除
+     * */
+    delete = articleId => {
+        let _this = this;
+        confirm({
+            title: '确认删除此文章?',
+            okText: '确认',
+            cancelText: '取消',
+            onOk() {
+                resource
+                    .delete(`/kn/deleteArticleAdmin/${articleId}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            message.success('删除成功');
+                            _this.getList();
+                        } else {
+                            throw new Error('删除失败');
+                        }
+                    })
+                    .catch(err => message.error(err));
+            },
+            onCancel() {}
+        });
+    };
+
     render() {
-        let { hotList, loading } = this.state;
+        let { list, loading } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.flexColumn}>
                     {loading ? (
                         <Facebook />
                     ) : (
-                        hotList.map(item => {
+                        list.map(item => {
                             return (
                                 <div
                                     className={style.common}
@@ -92,31 +123,43 @@ class List extends Component {
                                                 <i className="icon iconfont">
                                                     &#xe688;
                                                 </i>
-                                                <a>{item.author || '-'}</a>
+                                                <a href="">
+                                                    {item.author || '-'}
+                                                </a>
                                             </span>
                                             <span>
                                                 <i className="icon iconfont">
                                                     &#xe722;
                                                 </i>
-                                                <a>{item.scans || 0}</a>
+                                                <a href="">{item.scans || 0}</a>
                                             </span>
                                             <span>
                                                 <i className="icon iconfont">
                                                     &#xe603;
                                                 </i>
-                                                <a>{item.comments || 0}</a>
+                                                <a href="">
+                                                    {item.comments || 0}
+                                                </a>
                                             </span>
                                             <span>
                                                 <i className="icon iconfont">
                                                     &#xe632;
                                                 </i>
-                                                <a>
+                                                <a href="">
                                                     {moment(
                                                         item.updateTime
                                                     ).format(
                                                         'YYYY-MM-DD hh:mm:ss'
                                                     )}
                                                 </a>
+                                            </span>
+                                            <span
+                                                className={style.delete}
+                                                onClick={() => {
+                                                    this.delete(item.articleId);
+                                                }}
+                                            >
+                                                删除
                                             </span>
                                         </div>
                                     </div>

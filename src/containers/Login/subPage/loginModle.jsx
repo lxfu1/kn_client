@@ -28,7 +28,7 @@ class LoginModle extends Component {
             return
         }
         resource
-            .post('/kn/login', {username,password})
+            .post('/kn/login', {username,password,checked})
             .then(res => {
                 if (res.status === 200) {
                     sessionStorage.setItem('token', res.data.userId)
@@ -39,14 +39,11 @@ class LoginModle extends Component {
                         JSON.stringify(res.data),
                         5 * 24 * 60 * 60 * 1000
                     );
+                    loginStore.rememberPw({username,password}, checked)
                     this.setState({
                         loginMsg: '',
                         username: '',
                         password: ''
-                    },()=>{
-                        if (checked) {
-                            loginStore.rememberPw({username,password})
-                        }
                     })
                 } else {
                     this.setState({

@@ -1,9 +1,9 @@
-import React from 'react'
-import { NavLink, withRouter, Link } from 'react-router-dom'
-import { observer } from 'mobx-react'
-import { loginStore, personalStore } from '../../store/index'
-import style from './style.scss'
-import Password from '../../containers/password'
+import React from 'react';
+import { NavLink, withRouter, Link } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { loginStore, personalStore } from '../../store/index';
+import style from './style.scss';
+import Password from '../../containers/password';
 
 const NAV = [
     {
@@ -18,13 +18,8 @@ const NAV = [
         name: '发文',
         to: '/main/blog',
         need: true
-    },
-    {
-        name: '后台管理',
-        to: '/admin'
-        // need: true
     }
-]
+];
 
 const NavItem = ({ name, to, need }, username) => {
     return (
@@ -37,145 +32,145 @@ const NavItem = ({ name, to, need }, username) => {
         >
             {name}
         </NavLink>
-    )
-}
+    );
+};
 
 @observer
 class Header extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             show: false,
             postSearchValue: '',
             mouser: 'none',
             showAlert: '',
             searchHistory: this.getHistory()
-        }
+        };
     }
 
     componentDidMount() {
         loginStore.checkMember('mem');
-        document.body.addEventListener('click', this.blurInput, false)
+        document.body.addEventListener('click', this.blurInput, false);
     }
 
     loginAction = (type, e) => {
-        loginStore.toggleLogin(true, type)
-    }
+        loginStore.toggleLogin(true, type);
+    };
 
     loginOut = () => {
-        sessionStorage.removeItem('user')
-        sessionStorage.removeItem('token')
-        loginStore.outUser()
+        sessionStorage.removeItem('user');
+        sessionStorage.removeItem('token');
+        loginStore.outUser();
         if (location.href.indexOf('blog') !== -1) {
-            this.props.history.push('/')
+            this.props.history.push('/');
         }
-    }
+    };
 
     getHistory = () => {
-        let res = []
-        let history = localStorage.getItem('search')
+        let res = [];
+        let history = localStorage.getItem('search');
         if (history) {
-            res = JSON.parse(history)
+            res = JSON.parse(history);
         }
-        return res
-    }
+        return res;
+    };
 
     searchValueChange = key => e => {
         this.setState({
             [key]: e.target.value
-        })
-    }
+        });
+    };
 
     onSearch = e => {
-        e.stopPropagation()
-        let { postSearchValue } = this.state
+        e.stopPropagation();
+        let { postSearchValue } = this.state;
         if (!postSearchValue) {
-            return
+            return;
         }
-        this.setHistory(postSearchValue)
+        this.setHistory(postSearchValue);
         this.setState(
             {
                 focus: false
             },
             () => {
-                this.props.history.push(`/main/search/${postSearchValue}/文章`)
+                this.props.history.push(`/main/search/${postSearchValue}/文章`);
             }
-        )
-    }
+        );
+    };
 
     setHistory = keyword => {
-        let history = JSON.parse(localStorage.getItem('search') || '[]')
-        let exist = history.findIndex(item => item === keyword)
+        let history = JSON.parse(localStorage.getItem('search') || '[]');
+        let exist = history.findIndex(item => item === keyword);
         if (exist === -1) {
-            history.unshift(keyword)
+            history.unshift(keyword);
         }
-        history.splice(4, history.length - 4)
+        history.splice(4, history.length - 4);
 
-        localStorage.setItem('search', JSON.stringify(history))
-    }
+        localStorage.setItem('search', JSON.stringify(history));
+    };
 
     clearHistory = (e, item) => {
-        e.stopPropagation()
-        let history = []
+        e.stopPropagation();
+        let history = [];
         if (!item) {
-            localStorage.setItem('search', '')
+            localStorage.setItem('search', '');
         } else {
-            history = JSON.parse(localStorage.getItem('search') || '[]')
-            let exist = history.findIndex(inner => inner === item)
-            history.splice(exist, 1)
-            localStorage.setItem('search', JSON.stringify(history))
+            history = JSON.parse(localStorage.getItem('search') || '[]');
+            let exist = history.findIndex(inner => inner === item);
+            history.splice(exist, 1);
+            localStorage.setItem('search', JSON.stringify(history));
         }
         this.setState({
             searchHistory: history
-        })
-    }
+        });
+    };
 
     focusInput = e => {
-        e.stopPropagation()
+        e.stopPropagation();
         this.setState({
             focus: true,
             searchHistory: this.getHistory()
-        })
-    }
+        });
+    };
 
     blurInput = () => {
-        this.setState({focus: false})
-    }
+        this.setState({ focus: false });
+    };
 
     componentWillUnmount() {
-        document.body.removeEventListener('click', this.blurInput, false)
+        document.body.removeEventListener('click', this.blurInput, false);
     }
 
     handleMouseMove = () => {
         this.setState({
             mouser: 'block'
-        })
-    }
+        });
+    };
 
     handleMouseOut = () => {
         this.setState({
             mouser: 'none'
-        })
-    }
+        });
+    };
 
     handleModal = () => {
-        let state = this.state
+        let state = this.state;
 
         state.showAlert = (
-            <Password status={true} handleCancel={this.handleCancel}/>
-        )
-        this.setState(state)
-    }
+            <Password status={true} handleCancel={this.handleCancel} />
+        );
+        this.setState(state);
+    };
 
     handleCancel = e => {
-        let state = this.state
+        let state = this.state;
 
-        state.showAlert = ''
-        this.setState(state)
-    }
+        state.showAlert = '';
+        this.setState(state);
+    };
 
     render() {
-        const { searchHistory, focus, mouser, showAlert } = this.state
+        const { searchHistory, focus, mouser, showAlert } = this.state;
 
         return (
             <div className={style.header}>
@@ -183,45 +178,64 @@ class Header extends React.Component {
                 <div className={style.navBox}>
                     <div className={style.navList}>
                         {NAV.map(obj => {
-                            return NavItem(obj, loginStore.userName)
+                            return NavItem(obj, loginStore.userName);
                         })}
-                        <div className={style.postSearchInput} onClick={this.focusInput}>
+                        <div
+                            className={style.postSearchInput}
+                            onClick={this.focusInput}
+                        >
                             <input
                                 type="text"
                                 value={this.state.postSearchValue}
-                                onChange={this.searchValueChange('postSearchValue')}
+                                onChange={this.searchValueChange(
+                                    'postSearchValue'
+                                )}
                                 placeholder="请输入文章标题"
                             />
-                            <img src={require('./sh.png')} onClick={this.onSearch}/>
+                            <img
+                                src={require('./sh.png')}
+                                onClick={this.onSearch}
+                            />
                             <div
                                 className={style.history}
                                 style={{
-                  display: focus && searchHistory.length > 0 ? 'block' : 'none'
-                }}
+                                    display:
+                                        focus && searchHistory.length > 0
+                                            ? 'block'
+                                            : 'none'
+                                }}
                             >
                                 <div>
                                     <div className={style.flexColumn}>
                                         {searchHistory.map(item => {
                                             return (
-                                                <div className={style.flexRow} key={item}>
+                                                <div
+                                                    className={style.flexRow}
+                                                    key={item}
+                                                >
                                                     <Link
                                                         to={`/main/search/${item}/文章`}
                                                         target="_blank"
                                                     >
-                            <span>
-                              <i className="icon iconfont">&#xe632;</i>
-                                {item}
-                            </span>
+                                                        <span>
+                                                            <i className="icon iconfont">
+                                                                &#xe632;
+                                                            </i>
+                                                            {item}
+                                                        </span>
                                                     </Link>
                                                     <i
                                                         onClick={e => {
-                              this.clearHistory(e, item)
-                            }}
+                                                            this.clearHistory(
+                                                                e,
+                                                                item
+                                                            );
+                                                        }}
                                                     >
                                                         x
                                                     </i>
                                                 </div>
-                                            )
+                                            );
                                         })}
                                     </div>
                                 </div>
@@ -244,16 +258,16 @@ class Header extends React.Component {
                             <i className="icon iconfont">&#xe688;</i>
                             <label
                                 onClick={e => {
-                  this.loginAction('login', e)
-                }}
+                                    this.loginAction('login', e);
+                                }}
                             >
                                 登录
                             </label>
                             <label className={style.split}>/</label>
                             <label
                                 onClick={e => {
-                  this.loginAction('register', e)
-                }}
+                                    this.loginAction('register', e);
+                                }}
                             >
                                 注册
                             </label>
@@ -267,16 +281,16 @@ class Header extends React.Component {
                         onMouseMove={this.handleMouseMove}
                         onMouseOut={this.handleMouseOut}
                     >
-                        <li>个人中心</li>
-                        <li>我的关注</li>
+                        <li>
+                            <Link to="/main/personal">个人中心</Link>
+                        </li>
                         <li onClick={this.handleModal}>密码修改</li>
                     </ul>
                 </div>
-
                 {showAlert}
             </div>
-        )
+        );
     }
 }
 
-export default withRouter(Header)
+export default withRouter(Header);

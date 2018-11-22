@@ -1,199 +1,205 @@
 $W: 1280px;
 .header {
-  position: fixed;
-  width: 100%;
-  height: 60px;
-  left: 0;
-  top: 0;
-  background: #fff;
-  border-bottom: 1px solid #f0f0f0;
-  z-index: 1000;
-  .icon {
-    position: absolute;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    left: 20px;
-    top: 10px;
-    font-size: 30px;
-    line-height: 40px;
-    font-weight: bold;
-    color: #ea6f5a;
-  }
-  .navBox {
-    width: $W;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    position: fixed;
+    width: 100%;
     height: 60px;
-    margin: 0 auto;
-    color: #333;
-  }
-  .navList {
-    position: relative;
-    height: 100%;
-  }
-  .loginInfo {
-    height: 57px;
-    line-height: 57px;
-    i {
-      color: #969696;
-      font-size: 24px;
-      vertical-align: middle;
-      margin-right: 5px;
-    }
-    label {
-      cursor: pointer;
-      &:hover {
-        color: #ea6f5a;
-      }
-    }
-  }
-  .postSearchInput {
-    display: inline-block;
-    position: relative;
-    margin-left: 30px;
-    input {
-      width: 200px;
-      margin: 0 auto;
-      height: 40px;
-      padding: 0 40px 0 10px;
-      border: 1px solid #eee;
-      background: #eee;
-      color: #333;
-      border-radius: 20px;
-      outline: none;
-      transition: width 0.3s 0.1s linear;
-      &::-ms-clear,
-      &::-ms-reveal {
-        display: none;
-      }
-    }
-    input:focus {
-      width: 300px;
-    }
-    img {
-      position: absolute;
-      top: 7px;
-      right: 10px;
-      width: 26px;
-      height: 26px;
-      cursor: pointer;
-    }
-    .history {
-      display: none;
-      position: absolute;
-      width: 280px;
-      top: 55px;
-      > div {
-        position: absolute;
-        width: 100%;
-        background-color: #fff;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        border-radius: 4px;
-        &:after {
-          content: '';
-          position: absolute;
-          left: 27px;
-          width: 10px;
-          height: 10px;
-          transform: rotate(45deg);
-          -ms-transform: rotate(45deg);
-          -webkit-transform: rotate(45deg);
-          top: -5px;
-          z-index: 1;
-          background-color: #fff;
-          box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-        }
-      }
-    }
-  }
-  .flexColumn {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    padding: 10px 0;
-    margin: 0 10px;
-    z-index: 2;
+    left: 0;
+    top: 0;
     background: #fff;
-    .flexRow {
-      display: flex;
-      width: 100%;
-      height: 40px;
-      justify-content: space-between;
-      align-items: center;
-      padding-right: 15px;
-      &:hover {
-        background: #f0f0f0;
-        border-radius: 4px;
-        > i {
-          display: block;
+    border-bottom: 1px solid #f0f0f0;
+    z-index: 1000;
+    .icon {
+        position: absolute;
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        left: 20px;
+        top: 10px;
+        font-size: 30px;
+        line-height: 40px;
+        font-weight: bold;
+        color: #ea6f5a;
+    }
+    .navBox {
+        width: $W;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 60px;
+        margin: 0 auto;
+        color: #333;
+    }
+    .navList {
+        position: relative;
+        height: 100%;
+    }
+    .loginInfo {
+        height: 57px;
+        line-height: 57px;
+        i {
+            color: #969696;
+            font-size: 24px;
+            vertical-align: middle;
+            margin-right: 5px;
         }
-      }
-      > i {
-        display: none;
-        font-style: normal;
-        font-size: 20px;
-        color: #a0a0a0;
-        line-height: 20px;
-        margin-top: -5px;
-        cursor: pointer;
-      }
+        label {
+            cursor: pointer;
+            &:hover {
+                color: #ea6f5a;
+            }
+        }
     }
-    a {
-      display: block;
-      width: 200px;
-      height: 40px;
-      line-height: 40px;
-      font-size: 14px;
-      color: #333;
-      position: relative;
-      align-items: center;
-      padding: 0 15px;
-      i {
-        margin-right: 5px;
-      }
+    .postSearchInput {
+        display: inline-block;
+        position: relative;
+        margin-left: 30px;
+        input {
+            width: 200px;
+            margin: 0 auto;
+            height: 40px;
+            padding: 0 40px 0 10px;
+            border: 1px solid #eee;
+            background: #eee;
+            color: #333;
+            border-radius: 20px;
+            outline: none;
+            transition: width 0.3s 0.1s linear;
+            &::-ms-clear,
+            &::-ms-reveal {
+                display: none;
+            }
+        }
+        input:focus {
+            width: 300px;
+        }
+        img {
+            position: absolute;
+            top: 7px;
+            right: 10px;
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+        }
+        .history {
+            display: none;
+            position: absolute;
+            width: 280px;
+            top: 55px;
+            > div {
+                position: absolute;
+                width: 100%;
+                background-color: #fff;
+                box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+                border-radius: 4px;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    left: 27px;
+                    width: 10px;
+                    height: 10px;
+                    transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    -webkit-transform: rotate(45deg);
+                    top: -5px;
+                    z-index: 1;
+                    background-color: #fff;
+                    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
     }
-  }
+    .flexColumn {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        padding: 10px 0;
+        margin: 0 10px;
+        z-index: 2;
+        background: #fff;
+        .flexRow {
+            display: flex;
+            width: 100%;
+            height: 40px;
+            justify-content: space-between;
+            align-items: center;
+            padding-right: 15px;
+            &:hover {
+                background: #f0f0f0;
+                border-radius: 4px;
+                > i {
+                    display: block;
+                }
+            }
+            > i {
+                display: none;
+                font-style: normal;
+                font-size: 20px;
+                color: #a0a0a0;
+                line-height: 20px;
+                margin-top: -5px;
+                cursor: pointer;
+            }
+        }
+        a {
+            display: block;
+            width: 200px;
+            height: 40px;
+            line-height: 40px;
+            font-size: 14px;
+            color: #333;
+            position: relative;
+            align-items: center;
+            padding: 0 15px;
+            i {
+                margin-right: 5px;
+            }
+        }
+    }
 }
 
 .navItem {
-  display: inline-block;
-  padding: 0 28px;
-  line-height: 60px;
-  font-size: 18px;
-  color: #333;
-  text-decoration: none;
-  &:hover {
-    color: #ea6f5a;
-  }
+    display: inline-block;
+    padding: 0 28px;
+    line-height: 60px;
+    font-size: 18px;
+    color: #333;
+    text-decoration: none;
+    &:hover {
+        color: #ea6f5a;
+    }
 }
 
 .navItemActive {
-  color: #ea6f5a;
+    color: #ea6f5a;
 }
 
 /*jhx*/
 .outhover {
-  width: 1340px;
-  margin: 0 auto;
+    width: 1340px;
+    margin: 0 auto;
 }
 
 .lists {
-  float: right;
-  position: relative;
-  bottom: 2px;
-  width: 150px;
-  background: rgb(255, 255, 255);
-  box-shadow: #ccc 0px 0px 10px;
-  display: block;
-  margin-right: 2%;
-  > li {
-    padding: 14px;
-    cursor: pointer;
-  }
-  li:hover {
-    background: rgba(204, 204, 204, 0.2);
-  }
+    float: right;
+    position: relative;
+    bottom: 2px;
+    width: 150px;
+    background: rgb(255, 255, 255);
+    box-shadow: #ccc 0px 0px 10px;
+    display: block;
+    margin-right: 2%;
+    > li {
+        padding: 14px;
+        cursor: pointer;
+        a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            color: #333;
+        }
+    }
+    li:hover {
+        background: rgba(204, 204, 204, 0.2);
+    }
 }
