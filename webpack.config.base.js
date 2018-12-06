@@ -1,14 +1,14 @@
-const path = require('path')
-const webpack = require('webpack')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const sourcePath = path.resolve('src')
+const sourcePath = path.resolve('src');
 
 module.exports = {
     output: {
-        path: path.resolve('./static'),
+        path: path.resolve('./views'),
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[name].[chunkhash:8].chunk.js'
     },
@@ -34,7 +34,8 @@ module.exports = {
             filename: './index.html', // 产出后的文件名称
             chunks: ['vendor', 'bundle']
         }),
-        new CopyWebpackPlugin([{from: path.resolve('src/static/js'), to: 'three'}]),
-        new CopyWebpackPlugin([{from: path.resolve('src/lib'), to: 'lib'}]),
+        new CopyWebpackPlugin([
+            { from: path.resolve('src/static'), to: 'static' }
+        ])
     ]
-}
+};

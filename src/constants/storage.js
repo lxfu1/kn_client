@@ -1,4 +1,5 @@
 // 上帝保佑,永无bug
 
 export const TOKEN = 'token';
-export const HOST = 'http://192.168.0.107:3000';
+export const HOST =
+    process.env.NODE_ENV === 'production' ? '' : 'http://192.168.2.54:3000';

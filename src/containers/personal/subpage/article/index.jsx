@@ -28,7 +28,11 @@ class List extends Component {
     getList = () => {
         let { page } = this.state;
         resource
-            .get(`/kn/searchByPersonal?page=${page}&size=10`)
+            .get(
+                `/kn/searchByPersonal?page=${page}&size=10&userId=${
+                    this.props.userId
+                }`
+            )
             .then(res => {
                 if (res.status === 200) {
                     this.setState(

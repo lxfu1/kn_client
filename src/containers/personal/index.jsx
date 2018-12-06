@@ -199,7 +199,10 @@ class Personal extends Component {
                             }
                             key="article"
                         >
-                            <Article callback={this.articleCount} />
+                            <Article
+                                userId={userId}
+                                callback={this.articleCount}
+                            />
                         </TabPane>
                         <TabPane
                             tab={
@@ -209,7 +212,10 @@ class Personal extends Component {
                             }
                             key="attention"
                         >
-                            <Attention refreshList={this.getAuthorInfo} />
+                            <Attention
+                                userId={userId}
+                                refreshList={this.getAuthorInfo}
+                            />
                         </TabPane>
                         <TabPane
                             tab={
@@ -219,7 +225,7 @@ class Personal extends Component {
                             }
                             key="follower"
                         >
-                            <Follower />
+                            <Follower userId={userId} />
                         </TabPane>
                     </Tabs>
                 </div>
