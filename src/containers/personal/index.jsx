@@ -14,6 +14,7 @@ class Personal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            userId: this.props.match.params.userId,
             authorInfo: {},
             articleCount: 0,
             visible: false,
@@ -30,8 +31,9 @@ class Personal extends Component {
     }
 
     getAuthorInfo = () => {
+        let { userId } = this.state;
         resource
-            .get(`/kn/getAuthorInfo`)
+            .get(`/kn/getAuthorInfo/${userId}`)
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
@@ -70,6 +72,7 @@ class Personal extends Component {
             confirmLoading: true
         });
         let { backUp } = this.state;
+        let { userId } = this.state;
         let params = new FormData();
         let file = document.getElementById('file').files[0]; // js 获取文件对象
         params.append('file', file);
@@ -137,9 +140,10 @@ class Personal extends Component {
             visible,
             confirmLoading,
             backUp,
-            change
+            change,
+            userId
         } = this.state;
-
+        const showEdit = userId && userId !== sessionStorage.getItem('token');
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -150,7 +154,9 @@ class Personal extends Component {
                                 onError={this.setDefault}
                                 alt=""
                             />
-                            <span onClick={this.showModal}>编辑</span>
+                            {showEdit ? null : (
+                                <span onClick={this.showModal}>编辑</span>
+                            )}
                         </div>
                         <div className={style.counts}>
                             <p className={style.name}>{authorInfo.username}</p>

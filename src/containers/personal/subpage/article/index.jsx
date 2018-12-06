@@ -4,6 +4,7 @@ import { message, Modal } from 'antd';
 import { Facebook } from 'react-content-loader';
 import moment from 'moment';
 import { HOST } from 'micro';
+import ListIcons from 'components/icons';
 import Pagination from 'rc-pagination';
 import resource from 'util/resource';
 import style from './styles.scss';
@@ -118,50 +119,11 @@ class List extends Component {
                                         <p className={style.content}>
                                             {item.introduction}
                                         </p>
-                                        <div className={style.icons}>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe688;
-                                                </i>
-                                                <a href="">
-                                                    {item.author || '-'}
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe722;
-                                                </i>
-                                                <a href="">{item.scans || 0}</a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe603;
-                                                </i>
-                                                <a href="">
-                                                    {item.comments || 0}
-                                                </a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe632;
-                                                </i>
-                                                <a href="">
-                                                    {moment(
-                                                        item.updateTime
-                                                    ).format(
-                                                        'YYYY-MM-DD hh:mm:ss'
-                                                    )}
-                                                </a>
-                                            </span>
-                                            <span
-                                                className={style.delete}
-                                                onClick={() => {
-                                                    this.delete(item.articleId);
-                                                }}
-                                            >
-                                                删除
-                                            </span>
-                                        </div>
+                                        <ListIcons
+                                            item={item}
+                                            delete={this.delete}
+                                            needDelete={true}
+                                        />
                                     </div>
                                     <div className={style.contentRight}>
                                         <img

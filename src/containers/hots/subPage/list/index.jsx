@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { message } from 'antd';
 import { Facebook } from 'react-content-loader';
-import moment from 'moment';
 import { HOST } from 'micro';
+import ListIcons from 'components/icons';
 import Pagination from 'rc-pagination';
 import resource from 'util/resource';
 import style from './styles.scss';
@@ -87,38 +87,7 @@ class List extends Component {
                                         <p className={style.content}>
                                             {item.introduction}
                                         </p>
-                                        <div className={style.icons}>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe688;
-                                                </i>
-                                                <a>{item.author || '-'}</a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe722;
-                                                </i>
-                                                <a>{item.scans || 0}</a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe603;
-                                                </i>
-                                                <a>{item.comments || 0}</a>
-                                            </span>
-                                            <span>
-                                                <i className="icon iconfont">
-                                                    &#xe632;
-                                                </i>
-                                                <a>
-                                                    {moment(
-                                                        item.updateTime
-                                                    ).format(
-                                                        'YYYY-MM-DD hh:mm:ss'
-                                                    )}
-                                                </a>
-                                            </span>
-                                        </div>
+                                        <ListIcons item={item} />
                                     </div>
                                     <div className={style.contentRight}>
                                         <img

@@ -5,6 +5,7 @@ import moment from 'moment';
 import style from './style.scss';
 import resource from 'resource';
 import { HOST } from 'micro';
+import ListIcons from 'components/icons';
 import Wheel from './subPage/Wheel';
 import Box from './subPage/box';
 import Box1 from './subPage/box1';
@@ -108,41 +109,7 @@ class HomeIndex extends Component {
                                             <p className={style.content}>
                                                 {item.introduction}
                                             </p>
-                                            <div className={style.icons}>
-                                                <span>
-                                                    <i className="icon iconfont">
-                                                        &#xe688;
-                                                    </i>
-                                                    <a>
-                                                        {item.user.username ||
-                                                            '-'}
-                                                    </a>
-                                                </span>
-                                                <span>
-                                                    <i className="icon iconfont">
-                                                        &#xe722;
-                                                    </i>
-                                                    <a>{item.scans || 0}</a>
-                                                </span>
-                                                <span>
-                                                    <i className="icon iconfont">
-                                                        &#xe603;
-                                                    </i>
-                                                    <a>{item.comments || 0}</a>
-                                                </span>
-                                                <span>
-                                                    <i className="icon iconfont">
-                                                        &#xe632;
-                                                    </i>
-                                                    <a>
-                                                        {moment(
-                                                            item.updateTime
-                                                        ).format(
-                                                            'YYYY-MM-DD hh:mm:ss'
-                                                        )}
-                                                    </a>
-                                                </span>
-                                            </div>
+                                            <ListIcons item={item} />
                                         </div>
                                         <div className={style.contentRight}>
                                             <img

@@ -1,0 +1,17 @@
+.delete {
+    cursor: pointer;
+}
+.icons {
+    i {
+        display: inline-block;
+        color: #ccc;
+        margin-right: 5px;
+    }
+    span {
+        display: inline-block;
+        margin-right: 10px;
+        a {
+            color: #999;
+        }
+    }
+}
