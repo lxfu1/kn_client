@@ -111,7 +111,14 @@ class HomeIndex extends Component {
                                             </p>
                                             <ListIcons item={item} />
                                         </div>
-                                        <div className={style.contentRight}>
+                                        <div
+                                            className={style.contentRight}
+                                            style={{
+                                                display: item.fileUrl
+                                                    ? 'flex'
+                                                    : 'none'
+                                            }}
+                                        >
                                             <img
                                                 src={`${HOST}${item.fileUrl}`}
                                                 alt=""
@@ -136,7 +143,12 @@ class HomeIndex extends Component {
                                     <img src={HOT30} alt="" />
                                 </Link>
                             </li>
-                            <li>
+                            <li
+                                style={{ cursor: 'not-allowed' }}
+                                onClick={() => {
+                                    message.warning('模块持续开发中');
+                                }}
+                            >
                                 <img src={LYLZ} alt="" />
                             </li>
                         </ul>
@@ -159,7 +171,7 @@ class HomeIndex extends Component {
                             })}
                         </div>
                     </Box1>
-                    <Box1 title="关注微信公众号">
+                    <Box1 title="和作者一起完善？">
                         <img className={style.wx} src={WX} alt="" />
                     </Box1>
                 </div>
