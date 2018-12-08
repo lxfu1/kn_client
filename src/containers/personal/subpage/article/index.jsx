@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { message, Modal } from 'antd';
 import { Facebook } from 'react-content-loader';
-import moment from 'moment';
 import { HOST } from 'micro';
 import ListIcons from 'components/icons';
 import Pagination from 'rc-pagination';
@@ -92,12 +91,15 @@ class List extends Component {
 
     render() {
         let { list, loading } = this.state;
+        const need =
+            this.props.userId &&
+            this.props.userId !== sessionStorage.getItem('token');
         return (
             <div className={style.container}>
                 <div className={style.flexColumn}>
                     {loading ? (
                         <Facebook />
-                    ) : (
+                    ) : list.length ? (
                         list.map(item => {
                             return (
                                 <div
@@ -126,10 +128,17 @@ class List extends Component {
                                         <ListIcons
                                             item={item}
                                             delete={this.delete}
-                                            needDelete={true}
+                                            needDelete={!need}
                                         />
                                     </div>
-                                    <div className={style.contentRight}>
+                                    <div
+                                        className={style.contentRight}
+                                        style={{
+                                            display: item.fileUrl
+                                                ? 'flex'
+                                                : 'none'
+                                        }}
+                                    >
                                         <img
                                             src={`${HOST}${item.fileUrl}`}
                                             alt=""
@@ -138,6 +147,8 @@ class List extends Component {
                                 </div>
                             );
                         })
+                    ) : (
+                        <p>暂无数据</p>
                     )}
                 </div>
                 <div

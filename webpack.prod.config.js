@@ -10,9 +10,9 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const workDir = path.resolve('.');
 
 module.exports = webpackMerge(baseConfig, {
-    output: {
-        publicPath: '/views/'
-    },
+    // output: {
+    //     publicPath: '/static/'
+    // },
     entry: {
         bundle: ['babel-polyfill', path.resolve('src/index.jsx')],
         vendor: [

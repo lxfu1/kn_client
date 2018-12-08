@@ -33,7 +33,9 @@ class ListIcons extends React.Component {
                 <span>
                     <i className="icon iconfont">&#xe632;</i>
                     <a href="">
-                        {moment(item.updateTime).format('YYYY-MM-DD hh:mm:ss')}
+                        {moment(item.updateTime).format(
+                            'YYYY-MM-DD hh:mm:ss a'
+                        )}
                     </a>
                 </span>
                 {needDelete ? (

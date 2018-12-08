@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
-import moment from 'moment';
 import style from './style.scss';
 import resource from 'resource';
 import { HOST } from 'micro';
@@ -53,6 +52,10 @@ class Hot extends Component {
     };
 
     handleCare = item => {
+        if (!sessionStorage.getItem('token')) {
+            message.warning('请先登录');
+            return;
+        }
         const { userId } = this.state;
         const status = this.isAttentioned(item, userId) ? 2 : 1;
         resource.get(`/kn/attention/${item.userId}/${status}`).then(res => {
@@ -86,52 +89,71 @@ class Hot extends Component {
                 </div>
                 <div className={style.right}>
                     <Box1 title="推荐作者">
-                        {author.map(item => {
-                            return (
-                                <div
-                                    key={item.userId}
-                                    className={style.flexRow}
-                                >
-                                    <div className={style.flexEnd}>
-                                        <img
-                                            src={HOST + item.headurl}
-                                            onError={this.setDefault}
-                                            alt=""
-                                        />
-                                        <div className={style.inner}>
-                                            <p className={style.title}>
-                                                {item.username}
-                                            </p>
-                                            <p>
-                                                发表文章： {item.articleCount}，评论：{' '}
-                                                {item.commentCount}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <span
-                                        className={style.attention}
-                                        title={
-                                            this.isAttentioned(item, userId)
-                                                ? '取消关注'
-                                                : '+关注'
-                                        }
-                                        style={{
-                                            color: this.isAttentioned(
-                                                item,
-                                                userId
-                                            )
-                                                ? '#ccc'
-                                                : '#42c02e'
-                                        }}
-                                        onClick={() => this.handleCare(item)}
+                        {author.length ? (
+                            author.map(item => {
+                                return (
+                                    <div
+                                        key={item.userId}
+                                        className={style.flexRow}
                                     >
-                                        {this.isAttentioned(item, userId)
-                                            ? '已关注'
-                                            : '+关注'}
-                                    </span>
-                                </div>
-                            );
-                        })}
+                                        <div className={style.flexEnd}>
+                                            <Link
+                                                to={`/main/personal/${
+                                                    item.userId
+                                                }`}
+                                            >
+                                                <img
+                                                    src={HOST + item.headurl}
+                                                    onError={this.setDefault}
+                                                    alt=""
+                                                />
+                                            </Link>
+                                            <div className={style.inner}>
+                                                <p className={style.title}>
+                                                    <Link
+                                                        to={`/main/personal/${
+                                                            item.userId
+                                                        }`}
+                                                    >
+                                                        {item.username}
+                                                    </Link>
+                                                </p>
+                                                <p>
+                                                    发表文章：{' '}
+                                                    {item.articleCount}，评论：{' '}
+                                                    {item.commentCount}
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <span
+                                            className={style.attention}
+                                            title={
+                                                this.isAttentioned(item, userId)
+                                                    ? '取消关注'
+                                                    : '+关注'
+                                            }
+                                            style={{
+                                                color: this.isAttentioned(
+                                                    item,
+                                                    userId
+                                                )
+                                                    ? '#ccc'
+                                                    : '#42c02e'
+                                            }}
+                                            onClick={() =>
+                                                this.handleCare(item)
+                                            }
+                                        >
+                                            {this.isAttentioned(item, userId)
+                                                ? '已关注'
+                                                : '+关注'}
+                                        </span>
+                                    </div>
+                                );
+                            })
+                        ) : (
+                            <p>加载中.....</p>
+                        )}
                     </Box1>
                 </div>
             </div>

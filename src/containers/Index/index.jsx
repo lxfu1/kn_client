@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
-import moment from 'moment';
+import { Facebook } from 'react-content-loader';
 import style from './style.scss';
 import resource from 'resource';
 import { HOST } from 'micro';
@@ -19,7 +19,8 @@ class HomeIndex extends Component {
         super(props);
         this.state = {
             newList: [],
-            labels: []
+            labels: [],
+            loading: true
         };
     }
 
@@ -34,13 +35,15 @@ class HomeIndex extends Component {
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
-                        newList: res.data.rows
+                        newList: res.data.rows,
+                        loading: false
                     });
                 }
             })
             .catch(err => {
                 console.log(err);
                 message.error('程序出了点问题，客官请稍后访问');
+                this.setState({ loading: false });
             });
     };
 
@@ -62,7 +65,7 @@ class HomeIndex extends Component {
     };
 
     render() {
-        const { newList, labels, likeTops } = this.state;
+        const { newList, labels, loading } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -76,57 +79,68 @@ class HomeIndex extends Component {
                         </strong>
                         <h3 className={style.boxTitle}>博主介绍</h3>
                         <p style={{ textIndent: '2em' }}>
-                            准备吃晚饭了，好丰盛啊！红烧牛肉，海鲜，大虾，泡椒凤爪，葱香排骨，黑胡椒牛排.....这么多口味的方便面，该吃哪一种呢？
-                            每当考试时候，老师说：“请把和考试无关的东西放在讲台上。”我真的很想把自己放在讲台上。。。
+                            系统功能持续完善中，精力有限，想做的太多时间太少，代码难写，切勿破坏！
+                            感谢参与开发的姚、姜两位同事。
+                            如果你对node.js、react、react-native、ionic等有兴趣，
+                            欢迎加博主微信，我们一起打造后续功能。
                         </p>
                     </Box>
                     <Box1 title="最新发布">
                         <div className={style.flexColumn}>
-                            {newList.map(item => {
-                                return (
-                                    <div
-                                        className={style.common}
-                                        key={item.articleId}
-                                    >
+                            {loading ? (
+                                <Facebook />
+                            ) : (
+                                newList.map(item => {
+                                    return (
                                         <div
-                                            className={style.contentleft}
-                                            style={{
-                                                width: item.fileUrl
-                                                    ? '75%'
-                                                    : '100%'
-                                            }}
+                                            className={style.common}
+                                            key={item.articleId}
                                         >
-                                            <Link
-                                                to={`/main/detail/${
-                                                    item.articleId
-                                                }`}
-                                                target="_blank"
+                                            <div
+                                                className={style.contentleft}
+                                                style={{
+                                                    width: item.fileUrl
+                                                        ? '75%'
+                                                        : '100%'
+                                                }}
                                             >
-                                                <h4 className={style.newList}>
-                                                    {item.title}
-                                                </h4>
-                                            </Link>
-                                            <p className={style.content}>
-                                                {item.introduction}
-                                            </p>
-                                            <ListIcons item={item} />
+                                                <Link
+                                                    to={`/main/detail/${
+                                                        item.articleId
+                                                    }`}
+                                                >
+                                                    <h4
+                                                        className={
+                                                            style.newList
+                                                        }
+                                                    >
+                                                        {item.title}
+                                                    </h4>
+                                                </Link>
+                                                <p className={style.content}>
+                                                    {item.introduction}
+                                                </p>
+                                                <ListIcons item={item} />
+                                            </div>
+                                            <div
+                                                className={style.contentRight}
+                                                style={{
+                                                    display: item.fileUrl
+                                                        ? 'flex'
+                                                        : 'none'
+                                                }}
+                                            >
+                                                <img
+                                                    src={`${HOST}${
+                                                        item.fileUrl
+                                                    }`}
+                                                    alt=""
+                                                />
+                                            </div>
                                         </div>
-                                        <div
-                                            className={style.contentRight}
-                                            style={{
-                                                display: item.fileUrl
-                                                    ? 'flex'
-                                                    : 'none'
-                                            }}
-                                        >
-                                            <img
-                                                src={`${HOST}${item.fileUrl}`}
-                                                alt=""
-                                            />
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                                    );
+                                })
+                            )}
                         </div>
                     </Box1>
                 </div>
@@ -155,20 +169,24 @@ class HomeIndex extends Component {
                     </div>
                     <Box1 title="热门标签">
                         <div className={style.flexRow}>
-                            {labels.map(item => {
-                                return (
-                                    <Link
-                                        className={style.labels}
-                                        to={`/main/search/${item.text}/${
-                                            item.labelId
-                                        }`}
-                                        target="_blank"
-                                        key={item.labelId}
-                                    >
-                                        {item.text}
-                                    </Link>
-                                );
-                            })}
+                            {labels.length ? (
+                                labels.map(item => {
+                                    return (
+                                        <Link
+                                            className={style.labels}
+                                            to={`/main/search/${item.text}/${
+                                                item.labelId
+                                            }`}
+                                            target="_blank"
+                                            key={item.labelId}
+                                        >
+                                            {item.text}
+                                        </Link>
+                                    );
+                                })
+                            ) : (
+                                <p>加载中...........</p>
+                            )}
                         </div>
                     </Box1>
                     <Box1 title="和作者一起完善？">

@@ -61,7 +61,7 @@ class List extends Component {
                 <div className={style.flexColumn}>
                     {loading ? (
                         <Facebook />
-                    ) : (
+                    ) : hotList.length ? (
                         hotList.map(item => {
                             return (
                                 <div
@@ -89,7 +89,14 @@ class List extends Component {
                                         </p>
                                         <ListIcons item={item} />
                                     </div>
-                                    <div className={style.contentRight}>
+                                    <div
+                                        className={style.contentRight}
+                                        style={{
+                                            display: item.fileUrl
+                                                ? 'flex'
+                                                : 'none'
+                                        }}
+                                    >
                                         <img
                                             src={`${HOST}${item.fileUrl}`}
                                             alt=""
@@ -98,6 +105,10 @@ class List extends Component {
                                 </div>
                             );
                         })
+                    ) : (
+                        <p className={style.empty}>
+                            博主最近太忙、来不及发布文章。
+                        </p>
                     )}
                 </div>
                 <div

@@ -1,82 +1,102 @@
-import React, { Component } from 'react'
-import moment from 'moment'
-import { NavLink } from 'react-router-dom'
-import style from './style.scss'
+import React, { Component } from 'react';
+import { Code } from 'react-content-loader';
+import { NavLink } from 'react-router-dom';
+import style from './style.scss';
+import resource from 'resource';
+import DF from '../../images/slide3.jpg';
 
 const Wth = 845;
 class Wheel extends Component {
     constructor(props) {
-        super(props)
-        this.time = null
+        super(props);
+        this.time = null;
         this.state = {
             order: 0,
             sty: 0,
-            data: [
-                require("../../images/slide1.jpg"),
-                require("../../images/slide2.jpg"),
-                require("../../images/slide3.jpg"),
-                require("../../images/slide4.jpg")
-            ]
-        }
+            data: [],
+            loading: true
+        };
     }
 
-    componentDidMount(){
-        this.setTime(this.state.data.length)
+    componentDidMount() {
+        this.requestHotList();
     }
+
+    requestHotList = () => {
+        resource.get(`/kn/articleTopFive`).then(res => {
+            if (res.status === 200) {
+                let splitData = res.data.rows ? res.data.rows.slice(0, 3) : [];
+                this.setState(
+                    {
+                        data: splitData,
+                        loading: false
+                    },
+                    () => {
+                        this.setTime(this.state.data.length);
+                    }
+                );
+            }
+        });
+    };
 
     setTime = length => {
         if (this.time || length < 2) {
-            return
+            return;
         }
 
         this.time = setInterval(() => {
-            this.LunBo(length)
-        }, 5000)
-    }
+            this.LunBo(length);
+        }, 5000);
+    };
 
     clearTime = () => {
         if (this.time) {
-            clearInterval(this.time)
+            clearInterval(this.time);
         }
-        this.time = null
-    }
+        this.time = null;
+    };
 
     LunBo = length => {
         let currentIndex = this.state.order,
             _length = this.state.data.length;
         if (currentIndex < _length - 1) {
-            currentIndex += 1
+            currentIndex += 1;
         } else {
-            currentIndex = 0
+            currentIndex = 0;
         }
-        let left = -currentIndex * Wth + 'px'
+        let left = -currentIndex * Wth + 'px';
         this.setState({
             order: currentIndex,
             sty: left
-        })
-    }
+        });
+    };
 
     changeImg = (e, index) => {
         if (index === this.state.order) {
-            return
+            return;
         }
 
-        let left = -index * Wth + 'px'
+        let left = -index * Wth + 'px';
         this.setState({
             order: index,
             sty: left
-        })
-    }
+        });
+    };
+
+    setDefault = e => {
+        e.target.setAttribute('src', DF);
+    };
 
     // 清除
     componentWillUnmount() {
         if (this.time) {
-            clearInterval(this.time)
+            clearInterval(this.time);
         }
     }
 
     render() {
-        let l = this.state.data.length || 1;
+        const { data, loading } = this.state;
+        let l = data.length || 1;
         return (
             <div
                 className={style.wheelBox}
@@ -84,40 +104,62 @@ class Wheel extends Component {
                 onMouseLeave={this.setTime}
             >
                 <div className={style.left}>
-                    <ul
-                        className={style.img}
-                        style={{ left: this.state.sty, width: l * Wth + 'px' }}>
-                        {
-                            this.state.data.map((item, index) => {
+                    {loading ? (
+                        <Code />
+                    ) : (
+                        <ul
+                            className={style.img}
+                            style={{
+                                left: this.state.sty,
+                                width: l * Wth + 'px'
+                            }}
+                        >
+                            {data.map((item, index) => {
                                 return (
                                     <li
-                                        key={index}
-                                        onClick={e => {this.changeImg(e, index)}}
+                                        key={item.articleId}
+                                        onClick={e => {
+                                            this.changeImg(e, index);
+                                        }}
                                     >
-                                        <img src={item} alt=""/>
+                                        <NavLink
+                                            to={`/main/detail/${
+                                                item.articleId
+                                            }`}
+                                        >
+                                            <img
+                                                src={item.fileUrl || DF}
+                                                onError={this.setDefault}
+                                                alt=""
+                                            />
+                                        </NavLink>
                                     </li>
-                                )
-                            })
-                        }
-                    </ul>
+                                );
+                            })}
+                        </ul>
+                    )}
                     <ul className={style.circle}>
-                        {this.state.data.map((item, index) => {
+                        {data.map((item, index) => {
                             return (
                                 <li
                                     key={index}
-                                    className={this.state.order === index ? style.active : ''}
-                                    onClick={e => {this.changeImg(e, index)}}
+                                    className={
+                                        this.state.order === index
+                                            ? style.active
+                                            : ''
+                                    }
+                                    onClick={e => {
+                                        this.changeImg(e, index);
+                                    }}
                                 />
-                            )
+                            );
                         })}
                     </ul>
                 </div>
-                <div className={style.right}>
-
-                </div>
+                <div className={style.right} />
             </div>
-        )
+        );
     }
 }
 
-export default Wheel
+export default Wheel;

@@ -86,7 +86,7 @@ class List extends Component {
                 <div className={style.flexColumn}>
                     {loading ? (
                         <Facebook />
-                    ) : (
+                    ) : list.length ? (
                         list.map(item => {
                             return (
                                 <div
@@ -119,6 +119,8 @@ class List extends Component {
                                 </div>
                             );
                         })
+                    ) : (
+                        <p>暂无数据</p>
                     )}
                 </div>
                 <div

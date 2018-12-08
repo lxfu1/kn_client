@@ -119,7 +119,7 @@ class Lists extends Component {
                                             </i>
                                             <a>
                                                 {moment(item.updateTime).format(
-                                                    'YYYY-MM-DD hh:mm:ss'
+                                                    'YYYY-MM-DD hh:mm:ss a'
                                                 )}
                                             </a>
                                         </span>

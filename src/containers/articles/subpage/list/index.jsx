@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook } from 'react-content-loader';
 import { message } from 'antd';
-import moment from 'moment';
 import { HOST } from 'micro';
 import ListIcons from 'components/icons';
 import Pagination from 'rc-pagination';
 import resource from 'util/resource';
-import DF from '../../images/nd.jpg';
+import DF from '../../images/kn.jpg';
 import styles from './styles.scss';
 
 class List extends Component {

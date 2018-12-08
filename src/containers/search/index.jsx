@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
-import moment from 'moment';
 import style from './style.scss';
 import resource from 'resource';
 import Lists from './subPage/list';

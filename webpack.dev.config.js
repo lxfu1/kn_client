@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin');
 const webpackMerge = require('webpack-merge');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const baseConfig = require('./webpack.config.base');
 
 const workDir = path.resolve('.');
@@ -132,6 +133,9 @@ module.exports = webpackMerge(baseConfig, {
                 NODE_ENV: JSON.stringify('development')
             }
         }),
+        new CopyWebpackPlugin([
+            { from: path.resolve('src/static'), to: 'static' }
+        ]),
         new OpenBrowserWebpackPlugin({ url: 'http://localhost:12341' })
     ]
 });

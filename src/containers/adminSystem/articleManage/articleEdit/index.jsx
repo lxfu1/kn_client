@@ -285,7 +285,11 @@ export default class ArticleEdit extends Component {
                     }}
                     plugins={['uploadImage', 'insertCode']}
                     uploadImage={this.uploadImage}
-                    ueditorPath="static/lib/ueditor"
+                    ueditorPath={
+                        process.env.NODE_ENV === 'development'
+                            ? 'static/lib/ueditor'
+                            : 'lib/ueditor'
+                    }
                     onChange={text => {
                         let sendData = this.state.sendData;
                         sendData.detail = text;

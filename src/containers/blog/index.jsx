@@ -70,21 +70,16 @@ export default class Blob extends Component {
                 }
             })
             .catch(err => {
-                console.log(err);
+                message.error('文章内容过长，请勿直接复制粘贴。');
             });
     };
 
     setSendData = (name, value) => {
         let { sendData } = this.state;
         sendData[name] = value;
-        this.setState(
-            {
-                sendData
-            },
-            () => {
-                console.log(this.state.sendData);
-            }
-        );
+        this.setState({
+            sendData
+        });
     };
 
     getUeditor = ref => {
@@ -118,7 +113,7 @@ export default class Blob extends Component {
                     }
                 })
                 .catch(err => {
-                    console.log(err);
+                    message.error(err);
                 });
         });
     };
@@ -232,7 +227,11 @@ export default class Blob extends Component {
                     }}
                     plugins={['uploadImage', 'insertCode']}
                     uploadImage={this.uploadImage}
-                    ueditorPath="static/lib/ueditor"
+                    ueditorPath={
+                        process.env.NODE_ENV === 'development'
+                            ? 'static/lib/ueditor'
+                            : 'lib/ueditor'
+                    }
                     value=""
                 />
                 <Modal

@@ -8,7 +8,7 @@
         "dev": "set NODE_ENV=development&& ./node_modules/.bin/webpack-dev-server --config webpack.dev.config.js",
         "mock": "node --harmony ./mock/server.js",
         "build":
-            "set NODE_ENV=production&& ./node_modules/.bin/rimraf ./views && ./node_modules/.bin/webpack --progress --color --config webpack.prod.config.js"
+            "set NODE_ENV=production&& ./node_modules/.bin/rimraf ./static && ./node_modules/.bin/webpack --progress --color --config webpack.prod.config.js"
     },
     "author": "",
     "license": "ISC",
