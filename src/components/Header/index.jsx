@@ -10,10 +10,10 @@ const NAV = [
         name: '主页',
         to: '/main/home'
     },
-    {
-        name: '空闲小写',
-        to: '/main/article'
-    },
+    // {
+    //     name: '空闲小写',
+    //     to: '/main/article'
+    // },
     {
         name: '发文',
         to: '/main/blog',

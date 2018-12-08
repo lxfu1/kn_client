@@ -25,10 +25,9 @@ class Wheel extends Component {
     requestHotList = () => {
         resource.get(`/kn/articleTopFive`).then(res => {
             if (res.status === 200) {
-                let splitData = res.data.rows ? res.data.rows.slice(0, 3) : [];
                 this.setState(
                     {
-                        data: splitData,
+                        data: res.data.rows || [],
                         loading: false
                     },
                     () => {
@@ -126,6 +125,7 @@ class Wheel extends Component {
                                             to={`/main/detail/${
                                                 item.articleId
                                             }`}
+                                            target="_blank"
                                         >
                                             <img
                                                 src={item.fileUrl || DF}

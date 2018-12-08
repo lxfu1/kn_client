@@ -103,7 +103,7 @@ class Hot extends Component {
                                                 }`}
                                             >
                                                 <img
-                                                    src={HOST + item.headurl}
+                                                    src={HOST + item.headUrl}
                                                     onError={this.setDefault}
                                                     alt=""
                                                 />

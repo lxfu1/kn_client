@@ -77,7 +77,7 @@ class List extends Component {
                                 >
                                     <div className={style.flexEnd}>
                                         <img
-                                            src={item.headurl || HD}
+                                            src={item.headUrl || HD}
                                             onError={this.setDefault}
                                             alt=""
                                         />

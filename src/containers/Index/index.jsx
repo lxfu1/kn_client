@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
-import { Facebook } from 'react-content-loader';
 import style from './style.scss';
 import resource from 'resource';
-import { HOST } from 'micro';
-import ListIcons from 'components/icons';
 import Wheel from './subPage/Wheel';
+import List from './subPage/list';
 import Box from './subPage/box';
 import Box1 from './subPage/box1';
 import WX from './images/wx.jpg';
@@ -18,34 +16,13 @@ class HomeIndex extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newList: [],
-            labels: [],
-            loading: true
+            labels: []
         };
     }
 
     componentDidMount() {
         this.getLabels();
-        this.getList();
     }
-
-    getList = () => {
-        resource
-            .get(`/kn/articleList?page=1&size=7`)
-            .then(res => {
-                if (res.status === 200) {
-                    this.setState({
-                        newList: res.data.rows,
-                        loading: false
-                    });
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                message.error('程序出了点问题，客官请稍后访问');
-                this.setState({ loading: false });
-            });
-    };
 
     getLabels = () => {
         resource
@@ -65,7 +42,7 @@ class HomeIndex extends Component {
     };
 
     render() {
-        const { newList, labels, loading } = this.state;
+        const { labels } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -85,64 +62,7 @@ class HomeIndex extends Component {
                             欢迎加博主微信，我们一起打造后续功能。
                         </p>
                     </Box>
-                    <Box1 title="最新发布">
-                        <div className={style.flexColumn}>
-                            {loading ? (
-                                <Facebook />
-                            ) : (
-                                newList.map(item => {
-                                    return (
-                                        <div
-                                            className={style.common}
-                                            key={item.articleId}
-                                        >
-                                            <div
-                                                className={style.contentleft}
-                                                style={{
-                                                    width: item.fileUrl
-                                                        ? '75%'
-                                                        : '100%'
-                                                }}
-                                            >
-                                                <Link
-                                                    to={`/main/detail/${
-                                                        item.articleId
-                                                    }`}
-                                                >
-                                                    <h4
-                                                        className={
-                                                            style.newList
-                                                        }
-                                                    >
-                                                        {item.title}
-                                                    </h4>
-                                                </Link>
-                                                <p className={style.content}>
-                                                    {item.introduction}
-                                                </p>
-                                                <ListIcons item={item} />
-                                            </div>
-                                            <div
-                                                className={style.contentRight}
-                                                style={{
-                                                    display: item.fileUrl
-                                                        ? 'flex'
-                                                        : 'none'
-                                                }}
-                                            >
-                                                <img
-                                                    src={`${HOST}${
-                                                        item.fileUrl
-                                                    }`}
-                                                    alt=""
-                                                />
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            )}
-                        </div>
-                    </Box1>
+                    <List />
                 </div>
                 <div className={style.right}>
                     <div className={style.hotList}>
