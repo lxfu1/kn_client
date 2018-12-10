@@ -5,7 +5,7 @@ import style from './style.scss';
 import resource from 'resource';
 import DF from '../../images/slide3.jpg';
 
-const Wth = 845;
+const Wth = 750;
 class Wheel extends Component {
     constructor(props) {
         super(props);

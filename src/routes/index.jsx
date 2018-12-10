@@ -14,6 +14,7 @@ import Home from '../containers/Index';
 import Search from '../containers/search';
 import Hot from '../containers/hots';
 import Personal from '../containers/personal';
+import RecommendAuthor from '../containers/recommendAuthor';
 // 后台管理
 import AdminSystem from '../containers/adminSystem/index';
 import ArticleManage from '../containers/adminSystem/articleManage';
@@ -70,6 +71,12 @@ const routes = () => (
 
                             {/* blog */}
                             <Route path="/main/blog" component={Blog} />
+
+                            {/* 推荐作者 */}
+                            <Route
+                                path="/main/rcAuthor"
+                                component={RecommendAuthor}
+                            />
                         </Switch>
                     </App>
                 )}

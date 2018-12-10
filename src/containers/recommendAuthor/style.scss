@@ -1,0 +1,110 @@
+.container {
+    width: 1170px;
+    min-height: calc(100vh - 100px);
+    margin: 0 auto;
+    padding: 30px 15px;
+    .bg {
+        width: 100%;
+        min-height: 100px;
+        padding: 15px;
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+    }
+
+    .warp {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+    .common {
+        position: relative;
+        width: 25%;
+        height: 280px;
+        margin-top: 80px;
+        padding: 0 15px;
+        .item {
+            width: 100%;
+            height: 100%;
+            padding-top: 50px;
+            border: 1px solid #e6e6e6;
+            border-radius: 4px;
+            background-color: hsla(0, 0%, 71%, 0.1);
+            transition: 0.2s ease;
+            text-align: center;
+            &:hover {
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+        }
+        .header {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            left: 50%;
+            margin-left: -40px;
+            top: -40px;
+            img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+        .title {
+            display: block;
+            text-align: center;
+            font-size: 21px;
+            font-weight: 700;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #333;
+        }
+        .describe {
+            display: inline-block;
+            max-width: 80%;
+            height: 75px;
+            margin: 0;
+            font-size: 13px;
+            line-height: 25px;
+            color: #333;
+            overflow: hidden;
+        }
+        .attention {
+            display: block;
+            width: 100px;
+            height: 40px;
+            margin: 15px auto;
+            line-height: 40px;
+            cursor: pointer;
+            border-radius: 20px;
+            background: #3db922;
+            font-size: 16px;
+            color: #fff;
+            &:hover {
+                background: #2ec00d;
+            }
+        }
+    }
+    .showAll {
+        display: block;
+        text-align: center;
+        touch-action: manipulation;
+        white-space: nowrap;
+        line-height: 1.42857;
+        border-radius: 4px;
+        user-select: none;
+        width: 38.2%;
+        padding: 10px 0;
+        margin: 40px auto;
+        font-size: 15px;
+        border-radius: 20px;
+        background-color: #a5a5a5;
+        border: none;
+        cursor: pointer;
+        color: #fff;
+    }
+}

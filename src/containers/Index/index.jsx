@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
+import Recommend from 'components/recommend';
 import style from './style.scss';
 import resource from 'resource';
 import Wheel from './subPage/Wheel';
@@ -10,7 +11,6 @@ import Box1 from './subPage/box1';
 import WX from './images/wx.jpg';
 import HOT7 from './images/hot7.png';
 import HOT30 from './images/hot30.png';
-import LYLZ from './images/lylz.png';
 
 class HomeIndex extends Component {
     constructor(props) {
@@ -43,6 +43,10 @@ class HomeIndex extends Component {
 
     render() {
         const { labels } = this.state;
+        const boxStyle = {
+            border: '1px solid #f0f0f0',
+            borderRadius: '3px'
+        };
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -77,14 +81,6 @@ class HomeIndex extends Component {
                                     <img src={HOT30} alt="" />
                                 </Link>
                             </li>
-                            <li
-                                style={{ cursor: 'not-allowed' }}
-                                onClick={() => {
-                                    message.warning('模块持续开发中');
-                                }}
-                            >
-                                <img src={LYLZ} alt="" />
-                            </li>
                         </ul>
                     </div>
                     <Box1 title="热门标签">
@@ -109,7 +105,8 @@ class HomeIndex extends Component {
                             )}
                         </div>
                     </Box1>
-                    <Box1 title="和作者一起完善？">
+                    <Recommend />
+                    <Box1 title="和作者一起完善？" boxStyle={boxStyle}>
                         <img className={style.wx} src={WX} alt="" />
                     </Box1>
                 </div>

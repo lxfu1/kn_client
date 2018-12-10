@@ -11,11 +11,10 @@
         box-sizing: border-box;
     }
     .left {
-        width: 845px;
+        width: 750px;
     }
     .right {
-        width: 260px;
-        height: 200px;
+        width: 355px;
         .hotList {
             width: 100%;
             margin-bottom: 20px;
@@ -55,6 +54,8 @@
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        padding: 15px 0;
+        border-bottom: 1px solid #f7f7f7;
     }
     .flexColumn {
         display: flex;
@@ -115,7 +116,9 @@
         }
     }
     .wx {
+        display: block;
         width: 230px;
         height: 230px;
+        margin: 0 auto;
     }
 }

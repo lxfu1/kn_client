@@ -222,7 +222,7 @@ export default class Blob extends Component {
                     config={{
                         sourceEditor: false,
                         autoHeightEnabled: false,
-                        initialFrameHeight: 250,
+                        initialFrameHeight: 500,
                         initialFrameWidth: 1170
                     }}
                     plugins={['uploadImage', 'insertCode']}

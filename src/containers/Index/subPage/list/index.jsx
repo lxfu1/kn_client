@@ -35,17 +35,12 @@ class List extends Component {
                 if (res.status === 200) {
                     let { articleList } = this.state;
                     articleList = articleList.concat(res.data.rows);
-                    this.setState(
-                        {
-                            articleList,
-                            total: res.data.count,
-                            loading: false,
-                            moreLoading: false
-                        },
-                        () => {
-                            console.log(this.state.articleList);
-                        }
-                    );
+                    this.setState({
+                        articleList,
+                        total: res.data.count,
+                        loading: false,
+                        moreLoading: false
+                    });
                 } else {
                     message.error(res.message);
                 }
