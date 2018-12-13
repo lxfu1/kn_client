@@ -1,8 +1,10 @@
 // zhouke 2017/12/15  信用动态
 import React, { Component } from 'react';
 import { Facebook } from 'react-content-loader';
+import { Link } from 'react-router-dom';
 import { message, Icon } from 'antd';
 import moment from 'moment';
+import { HOST } from 'micro';
 import resource from 'util/resource';
 import styles from './styles.scss';
 import HD from 'static/images/hd.png';
@@ -160,13 +162,28 @@ class articleDetail extends Component {
                                         className={styles.replayComment}
                                     >
                                         <header>
-                                            <img
-                                                src={item.user.headerUrl}
-                                                onError={this.setDefault}
-                                                alt=""
-                                            />
+                                            <Link
+                                                to={`/main/personal/${
+                                                    item.user.userId
+                                                }`}
+                                            >
+                                                <img
+                                                    src={
+                                                        HOST + item.user.headUrl
+                                                    }
+                                                    onError={this.setDefault}
+                                                    alt=""
+                                                />
+                                            </Link>
                                             <div className={styles.userInfo}>
-                                                <p>{item.user.username}</p>
+                                                <Link
+                                                    to={`/main/personal/${
+                                                        item.user.userId
+                                                    }`}
+                                                >
+                                                    <p>{item.user.username}</p>
+                                                </Link>
+
                                                 <span>
                                                     {moment(
                                                         item.commentTime

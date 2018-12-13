@@ -72,7 +72,6 @@ class Personal extends Component {
             confirmLoading: true
         });
         let { backUp } = this.state;
-        let { userId } = this.state;
         let params = new FormData();
         let file = document.getElementById('file').files[0]; // js 获取文件对象
         params.append('file', file);

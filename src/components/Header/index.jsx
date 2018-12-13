@@ -61,9 +61,7 @@ class Header extends React.Component {
         sessionStorage.removeItem('user');
         sessionStorage.removeItem('token');
         loginStore.outUser();
-        if (location.href.indexOf('blog') !== -1) {
-            this.props.history.push('/');
-        }
+        this.props.history.push('/');
     };
 
     getHistory = () => {

@@ -12,19 +12,18 @@ const MENU = [
     },
     {
         icon: '&#xe600;',
-        text: '用户',
-        forbiden: true
-    },
-    {
-        icon: '&#xe67d;',
-        text: '专题',
-        forbiden: true
-    },
-    {
-        icon: '&#xe650;',
-        text: '专辑',
-        forbiden: true
+        text: '推荐作者'
     }
+    // {
+    //     icon: '&#xe67d;',
+    //     text: '专题',
+    //     forbiden: true
+    // },
+    // {
+    //     icon: '&#xe650;',
+    //     text: '专辑',
+    //     forbiden: true
+    // }
 ];
 class Search extends Component {
     constructor(props) {
@@ -37,7 +36,8 @@ class Search extends Component {
             size: 10,
             total: 0,
             keyword: this.props.match.params.keyword,
-            type: this.props.match.params.type || '文章'
+            type: '文章'
+            // type: this.props.match.params.type || '文章'
         };
     }
 
@@ -101,6 +101,13 @@ class Search extends Component {
             });
     };
 
+    clickMenu = text => {
+        if (text !== '推荐作者') {
+            return;
+        }
+        this.props.history.push('/main/rcAuthor');
+    };
+
     clearHistory = (e, item) => {
         e.stopPropagation();
         let history = [];
@@ -132,6 +139,9 @@ class Search extends Component {
                                             cursor: item.forbiden
                                                 ? 'not-allowed'
                                                 : 'pointer'
+                                        }}
+                                        onClick={() => {
+                                            this.clickMenu(item.text);
                                         }}
                                         className={
                                             item.text === type

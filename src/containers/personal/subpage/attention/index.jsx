@@ -81,6 +81,9 @@ class List extends Component {
 
     render() {
         let { list, loading } = this.state;
+        const need =
+            this.props.userId &&
+            this.props.userId !== sessionStorage.getItem('token');
         return (
             <div className={style.container}>
                 <div className={style.flexColumn}>
@@ -109,13 +112,17 @@ class List extends Component {
                                             </p>
                                         </div>
                                     </div>
-                                    <span
-                                        className={style.attention}
-                                        title="取消关注"
-                                        onClick={() => this.handleCare(item)}
-                                    >
-                                        已关注
-                                    </span>
+                                    {!need ? (
+                                        <span
+                                            className={style.attention}
+                                            title="取消关注"
+                                            onClick={() =>
+                                                this.handleCare(item)
+                                            }
+                                        >
+                                            已关注
+                                        </span>
+                                    ) : null}
                                 </div>
                             );
                         })

@@ -4,6 +4,7 @@ import { Facebook } from 'react-content-loader';
 import { message } from 'antd';
 import NoData from 'components/noData';
 import moment from 'moment';
+import ListIcons from 'components/icons';
 import Pagination from 'rc-pagination';
 import resource from 'util/resource';
 import styles from './styles.scss';
@@ -94,36 +95,7 @@ class Lists extends Component {
                                     <p className={styles.content}>
                                         {item.introduction}
                                     </p>
-                                    <div className={styles.icons}>
-                                        <span>
-                                            <i className="icon iconfont">
-                                                &#xe688;
-                                            </i>
-                                            <a>{item.user.username || '-'}</a>
-                                        </span>
-                                        <span>
-                                            <i className="icon iconfont">
-                                                &#xe722;
-                                            </i>
-                                            <a>{item.scans || 0}</a>
-                                        </span>
-                                        <span>
-                                            <i className="icon iconfont">
-                                                &#xe603;
-                                            </i>
-                                            <a>{item.comments || 0}</a>
-                                        </span>
-                                        <span>
-                                            <i className="icon iconfont">
-                                                &#xe632;
-                                            </i>
-                                            <a>
-                                                {moment(item.updateTime).format(
-                                                    'YYYY-MM-DD hh:mm:ss a'
-                                                )}
-                                            </a>
-                                        </span>
-                                    </div>
+                                    <ListIcons item={item} />
                                 </div>
                             </div>
                         );
