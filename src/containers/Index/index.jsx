@@ -61,8 +61,7 @@ class HomeIndex extends Component {
                         <h3 className={style.boxTitle}>博主介绍</h3>
                         <p style={{ textIndent: '2em' }}>
                             系统功能持续完善中，精力有限，想做的太多时间太少，代码难写，切勿破坏！
-                            感谢参与开发的姚、姜两位同事。
-                            如果你对node.js、react、react-native、ionic等有兴趣，
+                            如果你对node.js、react、react-native、koa.js、canvas等有兴趣，
                             欢迎加博主微信，我们一起打造后续功能。
                         </p>
                     </Box>

@@ -6,7 +6,9 @@ import {
     Switch,
     HashRouter as Router
 } from 'react-router-dom';
-import Article from '../containers/articles';
+import Effect from '../containers/effect';
+import Progress from '../containers/effect/subPage/canvasProgress';
+import FireWork from '../containers/effect/subPage/fireWork';
 import ArticleDetail from '../containers/articles/subpage/detail';
 import Blog from '../containers/blog';
 import App from '../containers/App';
@@ -41,12 +43,14 @@ const routes = () => (
                             />
                             <Route path="/main/home" component={Home} />
 
-                            {/* 文章 */}
+                            {/* 空闲小写 */}
                             <Route
-                                path="/main/article"
+                                path="/main/effect"
                                 exact
-                                component={Article}
+                                component={Effect}
                             />
+                            <Route path="/main/effect/p" component={Progress} />
+                            <Route path="/main/effect/f" component={FireWork} />
                             {/* 文章详情 */}
                             <Route
                                 path="/main/detail/:articleId"

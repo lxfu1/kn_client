@@ -36,8 +36,8 @@ class Search extends Component {
             size: 10,
             total: 0,
             keyword: this.props.match.params.keyword,
-            type: '文章'
-            // type: this.props.match.params.type || '文章'
+            type: this.props.match.params.type || '文章',
+            selectType: '文章'
         };
     }
 
@@ -125,7 +125,13 @@ class Search extends Component {
     };
 
     render() {
-        const { hotSearch, searchHistory, keyword, type } = this.state;
+        const {
+            hotSearch,
+            searchHistory,
+            keyword,
+            type,
+            selectType
+        } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -144,7 +150,7 @@ class Search extends Component {
                                             this.clickMenu(item.text);
                                         }}
                                         className={
-                                            item.text === type
+                                            item.text === selectType
                                                 ? style.active
                                                 : ''
                                         }

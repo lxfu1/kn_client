@@ -1,18 +1,18 @@
 {
-  "presets": [
-    "react",
-    [
-      "env",
-      {
-        "targets": {
-          "browsers": ["IE >= 9"]
-        }
-      }
+    "presets": [
+        "react",
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": ["IE >= 9"]
+                }
+            }
+        ],
+        "stage-0"
     ],
-    "stage-0"
-  ],
-  "plugins": [
-          "transform-decorators-legacy",
-          ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
-      ]
+    "plugins": [
+        "transform-decorators-legacy",
+        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }]
+    ]
 }
