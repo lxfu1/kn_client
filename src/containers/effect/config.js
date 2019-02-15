@@ -14,12 +14,18 @@ const cards = [
         color: '#fff'
     },
     {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 150
+        src: require('./images/mp.png'),
+        height: 300,
+        title: '3D地球',
+        link: '/main/effect/m',
+        color: '#fff'
     },
     {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 180
+        src: require('./images/ld.png'),
+        height: 200,
+        title: '带尾巴的菊花圈',
+        link: '/main/effect/l',
+        color: '#fff'
     },
     {
         src: require('./images/html5-canvas-loader.png'),

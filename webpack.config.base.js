@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const sourcePath = path.resolve('src');
 
@@ -32,6 +33,9 @@ module.exports = {
             template: './src/index.html', // 模板文件
             filename: './index.html', // 产出后的文件名称
             chunks: ['vendor', 'bundle']
-        })
+        }),
+        new CopyWebpackPlugin([
+            { from: path.resolve('src/static'), to: 'static' }
+        ])
     ]
 };

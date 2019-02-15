@@ -16,7 +16,7 @@ class Particle {
         return Math.random() * (max - min) + min;
     }
     draw() {
-        this.ctx.fillStyle = 'yellow';
+        this.ctx.fillStyle = 'green';
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
     }
 }
@@ -69,8 +69,8 @@ class Progress extends Component {
             this.particles.push(new Particle(this.ctx, w + this.padding, 298));
         }
         this.update();
-        this.drawBar(w, 'yellow');
-        requestAnimationFrame(() => {
+        this.drawBar(w, 'green');
+        this.animate = requestAnimationFrame(() => {
             this.draw(w);
         });
     };

@@ -9,6 +9,8 @@ import {
 import Effect from '../containers/effect';
 import Progress from '../containers/effect/subPage/canvasProgress';
 import FireWork from '../containers/effect/subPage/fireWork';
+import Map from '../containers/effect/subPage/map';
+import Loading from '../containers/effect/subPage/loading';
 import ArticleDetail from '../containers/articles/subpage/detail';
 import Blog from '../containers/blog';
 import App from '../containers/App';
@@ -51,6 +53,8 @@ const routes = () => (
                             />
                             <Route path="/main/effect/p" component={Progress} />
                             <Route path="/main/effect/f" component={FireWork} />
+                            <Route path="/main/effect/m" component={Map} />
+                            <Route path="/main/effect/l" component={Loading} />
                             {/* 文章详情 */}
                             <Route
                                 path="/main/detail/:articleId"
