@@ -22,8 +22,7 @@ module.exports = {
             components: path.resolve('./src/components'),
             containers: path.resolve('./src/containers'),
             micro: path.resolve('./src/constants/storage'),
-            loginStore: path.resolve('./src/store/LoginStore/index.jsx'),
-            eventEmitter: path.resolve('./src/util/eventEmitter.js')
+            loginStore: path.resolve('./src/store/LoginStore/index.jsx')
         },
         modules: [sourcePath, 'node_modules']
     },

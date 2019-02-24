@@ -6,23 +6,41 @@ import {
     Switch,
     HashRouter as Router
 } from 'react-router-dom';
-import Effect from '../containers/effect';
-import Progress from '../containers/effect/subPage/canvasProgress';
-import FireWork from '../containers/effect/subPage/fireWork';
-import Map from '../containers/effect/subPage/map';
-import Loading from '../containers/effect/subPage/loading';
-import ArticleDetail from '../containers/articles/subpage/detail';
-import Blog from '../containers/blog';
 import App from '../containers/App';
-import Home from '../containers/Index';
-import Search from '../containers/search';
-import Hot from '../containers/hots';
-import Personal from '../containers/personal';
-import RecommendAuthor from '../containers/recommendAuthor';
+import { AsyncPage } from '../util/utils';
+const Effect = AsyncPage(() => import('../containers/effect'));
+const Progress = AsyncPage(() =>
+    import('../containers/effect/subPage/canvasProgress')
+);
+const FireWork = AsyncPage(() =>
+    import('../containers/effect/subPage/fireWork')
+);
+const Map = AsyncPage(() => import('../containers/effect/subPage/map'));
+const Fire = AsyncPage(() => import('../containers/effect/subPage/fire'));
+const Loading = AsyncPage(() => import('../containers/effect/subPage/loading'));
+const FallStar = AsyncPage(() =>
+    import('../containers/effect/subPage/fallStar')
+);
+
+const ArticleDetail = AsyncPage(() =>
+    import('../containers/articles/subpage/detail')
+);
+const Blog = AsyncPage(() => import('../containers/blog'));
+const Home = AsyncPage(() => import('../containers/Index'));
+const Search = AsyncPage(() => import('../containers/search'));
+const Hot = AsyncPage(() => import('../containers/hots'));
+const Personal = AsyncPage(() => import('../containers/personal'));
+const RecommendAuthor = AsyncPage(() =>
+    import('../containers/recommendAuthor')
+);
 // 后台管理
-import AdminSystem from '../containers/adminSystem/index';
-import ArticleManage from '../containers/adminSystem/articleManage';
-import ArticleEdit from '../containers/adminSystem/articleManage/articleEdit';
+const AdminSystem = AsyncPage(() => import('../containers/adminSystem/index'));
+const ArticleManage = AsyncPage(() =>
+    import('../containers/adminSystem/articleManage')
+);
+const ArticleEdit = AsyncPage(() =>
+    import('../containers/adminSystem/articleManage/articleEdit')
+);
 
 const routes = () => (
     <Router>
@@ -55,6 +73,11 @@ const routes = () => (
                             <Route path="/main/effect/f" component={FireWork} />
                             <Route path="/main/effect/m" component={Map} />
                             <Route path="/main/effect/l" component={Loading} />
+                            <Route path="/main/effect/fire" component={Fire} />
+                            <Route
+                                path="/main/effect/fstar"
+                                component={FallStar}
+                            />
                             {/* 文章详情 */}
                             <Route
                                 path="/main/detail/:articleId"

@@ -23,37 +23,23 @@ const cards = [
     {
         src: require('./images/ld.png'),
         height: 200,
-        title: '带尾巴的菊花圈',
+        title: '菊花圈',
         link: '/main/effect/l',
         color: '#fff'
     },
     {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 400
+        src: require('./images/fire.png'),
+        height: 200,
+        title: '篝火',
+        link: '/main/effect/fire',
+        color: '#fff'
     },
     {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 200
-    },
-    {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 320
-    },
-    {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 170
-    },
-    {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 100
-    },
-    {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 150
-    },
-    {
-        src: require('./images/html5-canvas-loader.png'),
-        height: 180
+        src: require('./images/fstar.jpg'),
+        height: 186,
+        title: '流星',
+        link: '/main/effect/fStar',
+        color: '#fff'
     }
 ];
 

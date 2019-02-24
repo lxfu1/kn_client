@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { LOCATIONS, IMAGE_URLS, Keys } from './sub/constants';
 import style from './style.scss';
-import Loading from '../loading';
 import { message } from 'antd';
 import { Promise } from 'es6-promise';
 
+message.config({
+    top: 80
+});
 export default class Earth extends Component {
     constructor(props) {
         super(props);

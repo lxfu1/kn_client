@@ -11,6 +11,7 @@ class Particle {
         )},${this.random(0, 255)})`;
         this.alpha = 1;
         this.size = 1;
+        this.alive = true;
         this.x = 200 + Math.cos(angle) * this.radius + this.random(1, 10);
         this.y = 200 + Math.sin(angle) * this.radius + this.random(1, 10);
     }
@@ -21,6 +22,13 @@ class Particle {
         this.ctx.fillStyle = this.color;
         this.ctx.globalAlpha = this.alpha;
         this.ctx.fillRect(this.x, this.y, this.size, this.size);
+    }
+    update() {
+        this.alpha -= 0.02;
+        if (this.alpha < 0) {
+            this.alive = false;
+            this.alpha = 0;
+        }
     }
 }
 
@@ -55,7 +63,7 @@ class Loading extends Component {
 
     draw = angle => {
         if (angle < Math.PI * 2) {
-            angle += 0.1;
+            angle += 0.05;
         } else {
             angle = 0;
         }
@@ -72,9 +80,9 @@ class Loading extends Component {
     update = () => {
         const particles = [...this.particles];
         particles.map((c, i) => {
-            c.alpha -= 0.04;
+            c.update();
             c.draw();
-            if (c.alpha < 0) {
+            if (!c.alive) {
                 this.particles.splice(i, 1);
             }
         });

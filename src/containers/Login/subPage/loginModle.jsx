@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { observer } from 'mobx-react'
-import { loginStore } from '../../../store/index'
-import style from '../style.scss'
-import resource from '.././../../util/resource'
-import { LOGINSERVICES } from 'micro'
-import EventEmitter from 'eventEmitter'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { loginStore } from '../../../store/index';
+import style from '../style.scss';
+import resource from '.././../../util/resource';
+import { LOGINSERVICES } from 'micro';
 
 @observer
 class LoginModle extends Component {
@@ -16,63 +15,63 @@ class LoginModle extends Component {
             checked: !!loginStore.userName,
             username: '',
             password: ''
-        }
+        };
     }
 
     loginAction = () => {
-        let {username, password, checked} = this.state;
+        let { username, password, checked } = this.state;
         if (!username || !password) {
             this.setState({
                 loginMsg: '请输入用户名和密码'
-            })
-            return
+            });
+            return;
         }
         resource
-            .post('/kn/login', {username,password,checked})
+            .post('/kn/login', { username, password, checked })
             .then(res => {
                 if (res.status === 200) {
-                    sessionStorage.setItem('token', res.data.userId)
-                    loginStore.toggleLogin(false)
-                    loginStore.showUserName(res.data.username)
+                    sessionStorage.setItem('token', res.data.userId);
+                    loginStore.toggleLogin(false);
+                    loginStore.showUserName(res.data.username);
                     loginStore.setCookie(
                         'user',
                         JSON.stringify(res.data),
                         5 * 24 * 60 * 60 * 1000
                     );
-                    loginStore.rememberPw({username,password}, checked)
+                    loginStore.rememberPw({ username, password }, checked);
                     this.setState({
                         loginMsg: '',
                         username: '',
                         password: ''
-                    })
+                    });
                 } else {
                     this.setState({
-                        loginMsg: res.message,
-                    })
+                        loginMsg: res.message
+                    });
                 }
             })
             .catch(err => {
                 this.setState({
                     loginMsg: '出现错误'
-                })
-            })
-    }
+                });
+            });
+    };
 
     // 设置发送参数
     setData = (type, value) => {
         this.setState({
             [type]: value
-        })
-    }
+        });
+    };
 
     setChecked = e => {
         this.setState({
             checked: e.target.checked
-        })
-    }
+        });
+    };
 
     render() {
-        const {username,password,checked,loginMsg} = this.state;
+        const { username, password, checked, loginMsg } = this.state;
         return (
             <div className={style.loginBox}>
                 <h5 className={style.title}>登录</h5>
@@ -83,7 +82,7 @@ class LoginModle extends Component {
                             type="text"
                             value={username}
                             onChange={e => {
-                              this.setData('username', e.target.value)
+                                this.setData('username', e.target.value);
                             }}
                             placeholder="手机号"
                         />
@@ -94,7 +93,7 @@ class LoginModle extends Component {
                             type="password"
                             value={password}
                             onChange={e => {
-                              this.setData('password', e.target.value)
+                                this.setData('password', e.target.value);
                             }}
                             placeholder="输入密码"
                         />
@@ -109,32 +108,35 @@ class LoginModle extends Component {
                         <label htmlFor="mem">自动登录</label>
                         <span
                             onClick={() => {
-                            this.props.changeModle('find')
-                          }}
+                                this.props.changeModle('find');
+                            }}
                         >
-                          忘记密码？
+                            忘记密码？
                         </span>
                     </div>
                     <p className={style.errTip}>{loginMsg}</p>
                     <button
                         className={style.loginAction}
                         onClick={() => {
-                          this.loginAction()
-                        }}>登录 </button>
+                            this.loginAction();
+                        }}
+                    >
+                        登录{' '}
+                    </button>
                     <div className={style.moreMessage}>
                         <label>还没注册账户？</label>
-                    <span
-                        onClick={() => {
-                        this.props.changeModle('register')
-                      }}
-                    >
-                      免费注册
-                    </span>
+                        <span
+                            onClick={() => {
+                                this.props.changeModle('register');
+                            }}
+                        >
+                            免费注册
+                        </span>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default withRouter(LoginModle)
+export default withRouter(LoginModle);
