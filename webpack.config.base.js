@@ -34,7 +34,7 @@ module.exports = {
             chunks: ['vendor', 'bundle']
         }),
         new CopyWebpackPlugin([
-            { from: path.resolve('src/static'), to: 'static' }
+            { from: path.resolve('src/static/js'), to: 'thr' }
         ])
     ]
 };

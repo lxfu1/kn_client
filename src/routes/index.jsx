@@ -21,7 +21,9 @@ const Loading = AsyncPage(() => import('../containers/effect/subPage/loading'));
 const FallStar = AsyncPage(() =>
     import('../containers/effect/subPage/fallStar')
 );
-
+const Panorama = AsyncPage(() =>
+    import('../containers/effect/subPage/panorama')
+);
 const ArticleDetail = AsyncPage(() =>
     import('../containers/articles/subpage/detail')
 );
@@ -74,6 +76,10 @@ const routes = () => (
                             <Route path="/main/effect/m" component={Map} />
                             <Route path="/main/effect/l" component={Loading} />
                             <Route path="/main/effect/fire" component={Fire} />
+                            <Route
+                                path="/main/effect/panorama"
+                                component={Panorama}
+                            />
                             <Route
                                 path="/main/effect/fstar"
                                 component={FallStar}

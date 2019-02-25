@@ -25,7 +25,7 @@ class Progress extends Component {
     constructor() {
         super();
         this.particles = [];
-        this.w = document.body.clientWidth;
+        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.padding = 50;
         this.ctx = null;
@@ -58,7 +58,7 @@ class Progress extends Component {
     };
 
     draw = w => {
-        if (w < this.w) {
+        if (w < this.w - this.padding * 2) {
             w += 4;
         } else {
             w = 0;

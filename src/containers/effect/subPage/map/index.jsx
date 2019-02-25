@@ -28,8 +28,8 @@ export default class Earth extends Component {
         if (document.querySelector('.three')) {
             this.initMap();
         } else {
-            this.loadScript('/static/js/three.js').then(res => {
-                this.loadScript('/static/js/event.js').then(r => {
+            this.loadScript('/thr/three.js').then(res => {
+                this.loadScript('/thr/event.js').then(r => {
                     this.initMap();
                 });
             });

@@ -54,7 +54,7 @@ class Fire extends Component {
     constructor() {
         super();
         this.particles = [];
-        this.w = document.body.clientWidth;
+        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.x = this.w / 2;
         this.y = this.h - 150;

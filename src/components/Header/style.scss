@@ -7,7 +7,7 @@ $W: 1280px;
     top: 0;
     background: #fff;
     border-bottom: 1px solid #f0f0f0;
-    padding-left: 80px;
+    padding: 0 80px;
     z-index: 99;
     .icon {
         position: absolute;
@@ -22,7 +22,6 @@ $W: 1280px;
         color: #ea6f5a;
     }
     .navBox {
-        width: $W;
         display: flex;
         justify-content: space-between;
         align-items: center;

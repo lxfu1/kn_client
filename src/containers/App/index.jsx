@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { loginStore } from '../../store/index';
+import { observer } from 'mobx-react';
 import style from './style.scss';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import LoginDialog from '../Login';
 import RightScroll from 'components/RightScroll';
 
+@observer
 export default class App extends Component {
     cancel = () => {
         loginStore.toggleLogin(false);

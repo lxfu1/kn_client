@@ -40,6 +40,13 @@ const cards = [
         title: '流星',
         link: '/main/effect/fStar',
         color: '#fff'
+    },
+    {
+        src: require('./images/CEpanorama.png'),
+        height: 250,
+        title: '3D全景图',
+        link: '/main/effect/panorama',
+        color: '#fff'
     }
 ];
 
@@ -50,7 +57,7 @@ function fallsFlow(data) {
     if (!data || !data.length) {
         return data;
     }
-    const BoxWidth = 1240;
+    const BoxWidth = 1280;
     const Col = 4; // 一排放几个
     const ElementWidth = (BoxWidth / Col).toFixed(3);
     let arr = [];
