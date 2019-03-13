@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
-import Recommend from 'components/recommend';
+import Recommend from '@/components/recommend';
 import style from './style.scss';
-import resource from 'resource';
+import resource from '@/util/resource';
 import Wheel from './subPage/Wheel';
 import List from './subPage/list';
 import Box from './subPage/box';
@@ -52,10 +52,7 @@ class HomeIndex extends Component {
                 <div className={style.left}>
                     <Wheel />
                     <Box boxStyle={{ marginTop: '20px' }}>
-                        <strong
-                            className={style.boxStrong}
-                            style={{ background: 'rgb(255, 94, 82)' }}
-                        >
+                        <strong className={style.boxStrong} style={{ background: 'rgb(255, 94, 82)' }}>
                             博主置顶
                         </strong>
                         <h3 className={style.boxTitle}>博主介绍</h3>
@@ -89,9 +86,7 @@ class HomeIndex extends Component {
                                     return (
                                         <Link
                                             className={style.labels}
-                                            to={`/main/search/${item.text}/${
-                                                item.labelId
-                                            }`}
+                                            to={`/main/search/${item.text}/${item.labelId}`}
                                             target="_blank"
                                             key={item.labelId}
                                         >

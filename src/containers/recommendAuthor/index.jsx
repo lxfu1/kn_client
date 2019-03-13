@@ -3,8 +3,8 @@ import { NavLink, Link } from 'react-router-dom';
 import { Facebook, Code } from 'react-content-loader';
 import { message } from 'antd';
 import style from './style.scss';
-import resource from 'resource';
-import { HOST } from 'micro';
+import resource from '@/util/resource';
+import { HOST } from '@/constants/storage';
 import HD from 'static/images/hd.png';
 import Recommend from './images/recommend.png';
 
@@ -102,15 +102,7 @@ class RecommendAuthor extends Component {
     };
 
     render() {
-        const {
-            author,
-            userId,
-            loading,
-            moreLoading,
-            page,
-            size,
-            total
-        } = this.state;
+        const { author, userId, loading, moreLoading, page, size, total } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.bg}>
@@ -125,43 +117,21 @@ class RecommendAuthor extends Component {
                                 <div key={item.userId} className={style.common}>
                                     <div className={style.item}>
                                         <div className={style.header}>
-                                            <Link
-                                                to={`/main/personal/${
-                                                    item.userId
-                                                }`}
-                                            >
-                                                <img
-                                                    src={HOST + item.headUrl}
-                                                    onError={this.setDefault}
-                                                    alt=""
-                                                />
+                                            <Link to={`/main/personal/${item.userId}`}>
+                                                <img src={HOST + item.headUrl} onError={this.setDefault} alt="" />
                                             </Link>
                                         </div>
-                                        <Link
-                                            className={style.title}
-                                            to={`/main/personal/${item.userId}`}
-                                        >
+                                        <Link className={style.title} to={`/main/personal/${item.userId}`}>
                                             {item.username || '未知用户'}
                                         </Link>
-                                        <p className={style.describe}>
-                                            {item.describe || '暂无个人简介'}
-                                        </p>
-                                        <span
-                                            className={style.attention}
-                                            onClick={e =>
-                                                this.handleCare(e, item)
-                                            }
-                                        >
-                                            {this.isAttentioned(item, userId)
-                                                ? '已关注'
-                                                : '+关注'}
+                                        <p className={style.describe}>{item.describe || '暂无个人简介'}</p>
+                                        <span className={style.attention} onClick={e => this.handleCare(e, item)}>
+                                            {this.isAttentioned(item, userId) ? '已关注' : '+关注'}
                                         </span>
                                         <div className={style.flexEnd}>
                                             <div className={style.inner}>
                                                 <p>
-                                                    发表文章：{' '}
-                                                    {item.articleCount}，评论：{' '}
-                                                    {item.commentCount}
+                                                    发表文章： {item.articleCount}，评论： {item.commentCount}
                                                 </p>
                                             </div>
                                         </div>

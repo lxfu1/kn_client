@@ -98,7 +98,7 @@ export default class Panorama extends Component {
             controls.enableZoom = true;
             // 是否自动旋转
             controls.autoRotate = true;
-            controls.autoRotateSpeed = 0.3;
+            controls.autoRotateSpeed = 0.5;
             // 设置相机距离原点的最远距离
             controls.minDistance = 20;
             // 设置相机距离原点的最远距离

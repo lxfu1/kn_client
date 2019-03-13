@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, message, Modal } from 'antd';
 import style from './style.scss';
-import resource from 'util/resource';
-import { HOST } from 'micro';
+import resource from '@/util/resource';
+import { HOST } from '@/constants/storage';
 import ReactUeditor from 'ifanrx-react-ueditor';
 
 export default class ArticleEdit extends Component {
@@ -224,10 +224,7 @@ export default class ArticleEdit extends Component {
                         >
                             {types.map((item, index) => {
                                 return (
-                                    <option
-                                        key={item.labelId + index}
-                                        value={item.labelId}
-                                    >
+                                    <option key={item.labelId + index} value={item.labelId}>
                                         {item.text}
                                     </option>
                                 );
@@ -242,10 +239,7 @@ export default class ArticleEdit extends Component {
                         <textarea
                             value={sendData.introduction}
                             onChange={e => {
-                                this.setSendData(
-                                    'introduction',
-                                    e.target.value
-                                );
+                                this.setSendData('introduction', e.target.value);
                             }}
                         />
                     </div>
@@ -254,18 +248,10 @@ export default class ArticleEdit extends Component {
                             <span>略缩图：</span>
                             <img
                                 className={style.slt}
-                                src={
-                                    fileUrl.indexOf('data:') < 0
-                                        ? `${HOST}${fileUrl}`
-                                        : fileUrl
-                                }
+                                src={fileUrl.indexOf('data:') < 0 ? `${HOST}${fileUrl}` : fileUrl}
                                 alt=""
                             />
-                            <input
-                                id="file"
-                                type="file"
-                                onChange={this.uploadTitleImg}
-                            />
+                            <input id="file" type="file" onChange={this.uploadTitleImg} />
                         </div>
                         <div className={style.btns}>
                             <Button onClick={this.clear}>取消</Button>
@@ -285,11 +271,7 @@ export default class ArticleEdit extends Component {
                     }}
                     plugins={['uploadImage', 'insertCode']}
                     uploadImage={this.uploadImage}
-                    ueditorPath={
-                        process.env.NODE_ENV === 'development'
-                            ? 'static/lib/ueditor'
-                            : 'lib/ueditor'
-                    }
+                    ueditorPath={process.env.NODE_ENV === 'development' ? 'static/lib/ueditor' : 'lib/ueditor'}
                     onChange={text => {
                         let sendData = this.state.sendData;
                         sendData.detail = text;

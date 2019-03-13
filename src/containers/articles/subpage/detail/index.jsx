@@ -4,8 +4,8 @@ import { Facebook } from 'react-content-loader';
 import { Link } from 'react-router-dom';
 import { message, Icon } from 'antd';
 import moment from 'moment';
-import { HOST } from 'micro';
-import resource from 'util/resource';
+import { HOST } from '@/constants/storage';
+import resource from '@/util/resource';
 import styles from './styles.scss';
 import HD from 'static/images/hd.png';
 
@@ -115,15 +115,9 @@ class articleDetail extends Component {
                         <h5>{data.title}</h5>
                     </div>
                     <div className={styles.author}>
-                        <span>
-                            {moment(data.updateTime).format(
-                                'YYYY-MM-DD hh:mm:ss a'
-                            )}
-                        </span>
+                        <span>{moment(data.updateTime).format('YYYY-MM-DD hh:mm:ss a')}</span>
                     </div>
-                    <article
-                        dangerouslySetInnerHTML={{ __html: data.detail }}
-                    />
+                    <article dangerouslySetInnerHTML={{ __html: data.detail }} />
                 </div>
                 <div className={styles.comments}>
                     <textarea
@@ -157,46 +151,21 @@ class articleDetail extends Component {
                         <div className={styles.result}>
                             {replay.map(item => {
                                 return (
-                                    <div
-                                        key={item.commentId}
-                                        className={styles.replayComment}
-                                    >
+                                    <div key={item.commentId} className={styles.replayComment}>
                                         <header>
-                                            <Link
-                                                to={`/main/personal/${
-                                                    item.user.userId
-                                                }`}
-                                            >
-                                                <img
-                                                    src={
-                                                        HOST + item.user.headUrl
-                                                    }
-                                                    onError={this.setDefault}
-                                                    alt=""
-                                                />
+                                            <Link to={`/main/personal/${item.user.userId}`}>
+                                                <img src={HOST + item.user.headUrl} onError={this.setDefault} alt="" />
                                             </Link>
                                             <div className={styles.userInfo}>
-                                                <Link
-                                                    to={`/main/personal/${
-                                                        item.user.userId
-                                                    }`}
-                                                >
+                                                <Link to={`/main/personal/${item.user.userId}`}>
                                                     <p>{item.user.username}</p>
                                                 </Link>
 
-                                                <span>
-                                                    {moment(
-                                                        item.commentTime
-                                                    ).format(
-                                                        'YYYY-MM-DD hh:mm:ss a'
-                                                    )}
-                                                </span>
+                                                <span>{moment(item.commentTime).format('YYYY-MM-DD hh:mm:ss a')}</span>
                                             </div>
                                         </header>
                                         <div>
-                                            <p className={styles.commentLabel}>
-                                                {item.comments}
-                                            </p>
+                                            <p className={styles.commentLabel}>{item.comments}</p>
                                             {/* <span className={styles.rep}>
                                                 <Icon type="message" />
                                                 回复

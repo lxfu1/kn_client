@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
 import style from './style.scss';
-import resource from 'resource';
+import resource from '@/util/resource';
 import Lists from './subPage/list';
 
 const MENU = [
@@ -125,13 +125,7 @@ class Search extends Component {
     };
 
     render() {
-        const {
-            hotSearch,
-            searchHistory,
-            keyword,
-            type,
-            selectType
-        } = this.state;
+        const { hotSearch, searchHistory, keyword, type, selectType } = this.state;
         return (
             <div className={style.container}>
                 <div className={style.left}>
@@ -142,18 +136,12 @@ class Search extends Component {
                                     <li
                                         key={item.text}
                                         style={{
-                                            cursor: item.forbiden
-                                                ? 'not-allowed'
-                                                : 'pointer'
+                                            cursor: item.forbiden ? 'not-allowed' : 'pointer'
                                         }}
                                         onClick={() => {
                                             this.clickMenu(item.text);
                                         }}
-                                        className={
-                                            item.text === selectType
-                                                ? style.active
-                                                : ''
-                                        }
+                                        className={item.text === selectType ? style.active : ''}
                                     >
                                         <span className={style.icons}>
                                             <i
@@ -172,10 +160,7 @@ class Search extends Component {
                     <div className={style.common}>
                         <div className={style.header}>
                             <span>热门搜索</span>
-                            <span
-                                className={style.control}
-                                onClick={this.changeHistory}
-                            >
+                            <span className={style.control} onClick={this.changeHistory}>
                                 换一批
                             </span>
                         </div>
@@ -186,12 +171,8 @@ class Search extends Component {
                                         key={item.keyword}
                                         to={
                                             item.type === '文章'
-                                                ? `/main/search/${
-                                                      item.keyword
-                                                  }/文章`
-                                                : `/main/search/文章/${
-                                                      item.type
-                                                  }`
+                                                ? `/main/search/${item.keyword}/文章`
+                                                : `/main/search/文章/${item.type}`
                                         }
                                         target="_blank"
                                     >
@@ -228,9 +209,7 @@ class Search extends Component {
                                         }}
                                     >
                                         <span>
-                                            <i className="icon iconfont">
-                                                &#xe632;
-                                            </i>
+                                            <i className="icon iconfont">&#xe632;</i>
                                             {item}
                                         </span>
                                         <i

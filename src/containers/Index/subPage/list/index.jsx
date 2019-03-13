@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Code } from 'react-content-loader';
 import { message } from 'antd';
-import { HOST } from 'micro';
-import ListIcons from 'components/icons';
-import resource from 'util/resource';
+import { HOST } from '@/constants/storage';
+import ListIcons from '@/components/icons';
+import resource from '@/util/resource';
 import style from './styles.scss';
 
 class List extends Component {
@@ -26,11 +26,7 @@ class List extends Component {
 
     getList = () => {
         resource
-            .get(
-                `/kn/articleList?page=${this.state.page}&size=${
-                    this.state.size
-                }`
-            )
+            .get(`/kn/articleList?page=${this.state.page}&size=${this.state.size}`)
             .then(res => {
                 if (res.status === 200) {
                     let { articleList } = this.state;
@@ -66,14 +62,7 @@ class List extends Component {
     };
 
     render() {
-        let {
-            articleList,
-            loading,
-            moreLoading,
-            total,
-            page,
-            size
-        } = this.state;
+        let { articleList, loading, moreLoading, total, page, size } = this.state;
         return (
             <div className={style.container}>
                 {loading ? (
@@ -88,17 +77,10 @@ class List extends Component {
                                         width: item.fileUrl ? '75%' : '100%'
                                     }}
                                 >
-                                    <Link
-                                        to={`/main/detail/${item.articleId}`}
-                                        target="_blank"
-                                    >
-                                        <h4 className={style.title}>
-                                            {item.title}
-                                        </h4>
+                                    <Link to={`/main/detail/${item.articleId}`} target="_blank">
+                                        <h4 className={style.title}>{item.title}</h4>
                                     </Link>
-                                    <p className={style.content}>
-                                        {item.introduction}
-                                    </p>
+                                    <p className={style.content}>{item.introduction}</p>
                                     <ListIcons item={item} />
                                 </div>
                                 <div
@@ -107,10 +89,7 @@ class List extends Component {
                                         display: item.fileUrl ? 'flex' : 'none'
                                     }}
                                 >
-                                    <img
-                                        src={`${HOST}${item.fileUrl}`}
-                                        alt=""
-                                    />
+                                    <img src={`${HOST}${item.fileUrl}`} alt="" />
                                 </div>
                             </div>
                         );

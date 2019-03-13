@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { message } from 'antd';
 import style from './style.scss';
-import resource from 'resource';
-import { HOST } from 'micro';
+import resource from '@/util/resource';
+import { HOST } from '@/constants/storage';
 import HD from 'static/images/hd.png';
 
 class Recommend extends Component {
@@ -81,45 +81,26 @@ class Recommend extends Component {
                             <div key={item.userId} className={style.flexRow}>
                                 <div className={style.flexEnd}>
                                     <Link to={`/main/personal/${item.userId}`}>
-                                        <img
-                                            src={HOST + item.headUrl}
-                                            onError={this.setDefault}
-                                            alt=""
-                                        />
+                                        <img src={HOST + item.headUrl} onError={this.setDefault} alt="" />
                                     </Link>
                                     <div className={style.inner}>
                                         <p className={style.title}>
-                                            <Link
-                                                to={`/main/personal/${
-                                                    item.userId
-                                                }`}
-                                            >
-                                                {item.username}
-                                            </Link>
+                                            <Link to={`/main/personal/${item.userId}`}>{item.username}</Link>
                                         </p>
                                         <p>
-                                            发表文章： {item.articleCount}，评论：{' '}
-                                            {item.commentCount}
+                                            发表文章： {item.articleCount}，评论： {item.commentCount}
                                         </p>
                                     </div>
                                 </div>
                                 <span
                                     className={style.attention}
-                                    title={
-                                        this.isAttentioned(item, userId)
-                                            ? '取消关注'
-                                            : '+关注'
-                                    }
+                                    title={this.isAttentioned(item, userId) ? '取消关注' : '+关注'}
                                     style={{
-                                        color: this.isAttentioned(item, userId)
-                                            ? '#ccc'
-                                            : '#42c02e'
+                                        color: this.isAttentioned(item, userId) ? '#ccc' : '#42c02e'
                                     }}
                                     onClick={() => this.handleCare(item)}
                                 >
-                                    {this.isAttentioned(item, userId)
-                                        ? '已关注'
-                                        : '+关注'}
+                                    {this.isAttentioned(item, userId) ? '已关注' : '+关注'}
                                 </span>
                             </div>
                         );

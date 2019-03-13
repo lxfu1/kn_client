@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observable, action, runInAction } from 'mobx';
-import resource from 'resource';
+import resource from '@/util/resource';
 
 class MyState {
     @observable LoginStatus = false;
@@ -10,9 +10,7 @@ class MyState {
     @observable message = '';
 
     @observable
-    userName = getCookie('token')
-        ? getCookie('user') ? JSON.parse(getCookie('user')).username : ''
-        : '';
+    userName = getCookie('token') ? (getCookie('user') ? JSON.parse(getCookie('user')).username : '') : '';
 
     toggleLogin(status, type, message) {
         this.LoginStatus = status;
@@ -31,11 +29,7 @@ class MyState {
     }
 
     rememberPw(obj, flag) {
-        setCookie(
-            'mem',
-            JSON.stringify(obj),
-            flag ? 7 * 24 * 60 * 60 * 1000 : 60 * 60 * 1000
-        );
+        setCookie('mem', JSON.stringify(obj), flag ? 7 * 24 * 60 * 60 * 1000 : 60 * 60 * 1000);
     }
 
     checkMember = async mem => {
@@ -65,19 +59,13 @@ function loginOut() {
 function setCookie(name, value, time) {
     let exp = new Date();
     exp.setTime(exp.getTime() + time);
-    document.cookie =
-        name +
-        '=' +
-        escape(value) +
-        ';expires=' +
-        exp.toGMTString() +
-        ';path=/';
+    document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString() + ';path=/';
 }
 
 // cookie
 function getCookie(name) {
-    let arr,
-        reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+    let arr;
+    let reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
     if ((arr = document.cookie.match(reg))) {
         return unescape(arr[2]);
     } else {
@@ -91,13 +79,7 @@ function clearCookie(name) {
     exp.setTime(exp.getTime() - 1);
     let cval = getCookie(name);
     if (cval != null) {
-        document.cookie =
-            name +
-            '=' +
-            escape(cval) +
-            ';expires=' +
-            exp.toGMTString() +
-            ';path=/';
+        document.cookie = name + '=' + escape(cval) + ';expires=' + exp.toGMTString() + ';path=/';
     }
 }
 

@@ -4,8 +4,8 @@ import Article from './subpage/article';
 import Attention from './subpage/attention';
 import Follower from './subpage/follower';
 import style from './style.scss';
-import resource from 'resource';
-import { HOST } from 'micro';
+import resource from '@/util/resource';
+import { HOST } from '@/constants/storage';
 import HD from 'static/images/hd.png';
 
 const { TextArea } = Input;
@@ -133,29 +133,15 @@ class Personal extends Component {
     };
 
     render() {
-        const {
-            authorInfo,
-            articleCount,
-            visible,
-            confirmLoading,
-            backUp,
-            change,
-            userId
-        } = this.state;
+        const { authorInfo, articleCount, visible, confirmLoading, backUp, change, userId } = this.state;
         const showEdit = userId && userId !== sessionStorage.getItem('token');
         return (
             <div className={style.container}>
                 <div className={style.left}>
                     <div className={style.info}>
                         <div className={style.headerImage}>
-                            <img
-                                src={HOST + authorInfo.headUrl}
-                                onError={this.setDefault}
-                                alt=""
-                            />
-                            {showEdit ? null : (
-                                <span onClick={this.showModal}>编辑</span>
-                            )}
+                            <img src={HOST + authorInfo.headUrl} onError={this.setDefault} alt="" />
+                            {showEdit ? null : <span onClick={this.showModal}>编辑</span>}
                         </div>
                         <div className={style.counts}>
                             <p className={style.name}>{authorInfo.username}</p>
@@ -166,22 +152,16 @@ class Personal extends Component {
                                 </div>
                                 <div className={style.label}>
                                     <b>
-                                        {authorInfo.attention &&
-                                        authorInfo.attention.followedUser
-                                            ? authorInfo.attention.followedUser.split(
-                                                  '&'
-                                              ).length
+                                        {authorInfo.attention && authorInfo.attention.followedUser
+                                            ? authorInfo.attention.followedUser.split('&').length
                                             : 0}
                                     </b>
                                     <p>关注</p>
                                 </div>
                                 <div className={style.label}>
                                     <b>
-                                        {authorInfo.attention &&
-                                        authorInfo.attention.follower
-                                            ? authorInfo.attention.follower.split(
-                                                  '&'
-                                              ).length
+                                        {authorInfo.attention && authorInfo.attention.follower
+                                            ? authorInfo.attention.follower.split('&').length
                                             : 0}
                                     </b>
                                     <p>粉丝</p>
@@ -193,33 +173,30 @@ class Personal extends Component {
                         <TabPane
                             tab={
                                 <span>
-                                    <Icon type="file-protect" />文章
+                                    <Icon type="file-protect" />
+                                    文章
                                 </span>
                             }
                             key="article"
                         >
-                            <Article
-                                userId={userId}
-                                callback={this.articleCount}
-                            />
+                            <Article userId={userId} callback={this.articleCount} />
                         </TabPane>
                         <TabPane
                             tab={
                                 <span>
-                                    <Icon type="heart" />关注
+                                    <Icon type="heart" />
+                                    关注
                                 </span>
                             }
                             key="attention"
                         >
-                            <Attention
-                                userId={userId}
-                                refreshList={this.getAuthorInfo}
-                            />
+                            <Attention userId={userId} refreshList={this.getAuthorInfo} />
                         </TabPane>
                         <TabPane
                             tab={
                                 <span>
-                                    <Icon type="user" />粉丝
+                                    <Icon type="user" />
+                                    粉丝
                                 </span>
                             }
                             key="follower"
@@ -268,19 +245,8 @@ class Personal extends Component {
                     <div className={style.group}>
                         <span>头像:</span>
                         <div className={style.imgbox}>
-                            <img
-                                src={
-                                    change
-                                        ? backUp.headUrl
-                                        : HOST + backUp.headUrl
-                                }
-                                alt=""
-                            />
-                            <input
-                                id="file"
-                                type="file"
-                                onChange={this.uploadTitleImg}
-                            />
+                            <img src={change ? backUp.headUrl : HOST + backUp.headUrl} alt="" />
+                            <input id="file" type="file" onChange={this.uploadTitleImg} />
                         </div>
                     </div>
                 </Modal>

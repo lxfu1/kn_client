@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, message, Modal } from 'antd';
 import style from './style.scss';
-import resource from 'util/resource';
-import { HOST } from 'micro';
+import resource from '@/util/resource';
+import { HOST } from '@/constants/storage';
 import ReactUeditor from 'ifanrx-react-ueditor';
 
 export default class Blob extends Component {
@@ -179,10 +179,7 @@ export default class Blob extends Component {
                         >
                             {types.map((item, index) => {
                                 return (
-                                    <option
-                                        key={item.labelId + index}
-                                        value={item.labelId}
-                                    >
+                                    <option key={item.labelId + index} value={item.labelId}>
                                         {item.text}
                                     </option>
                                 );
@@ -197,10 +194,7 @@ export default class Blob extends Component {
                         <textarea
                             value={sendData.introduction}
                             onChange={e => {
-                                this.setSendData(
-                                    'introduction',
-                                    e.target.value
-                                );
+                                this.setSendData('introduction', e.target.value);
                             }}
                         />
                     </div>
@@ -227,11 +221,7 @@ export default class Blob extends Component {
                     }}
                     plugins={['uploadImage', 'insertCode']}
                     uploadImage={this.uploadImage}
-                    ueditorPath={
-                        process.env.NODE_ENV === 'development'
-                            ? 'static/lib/ueditor'
-                            : 'lib/ueditor'
-                    }
+                    ueditorPath={process.env.NODE_ENV === 'development' ? 'static/lib/ueditor' : 'lib/ueditor'}
                     value=""
                 />
                 <Modal

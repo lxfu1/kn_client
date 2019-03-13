@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { loginStore } from '../../../store/index';
 import style from '../style.scss';
 import resource from '.././../../util/resource';
-import { LOGINSERVICES } from 'micro';
+import { LOGINSERVICES } from '@/constants/storage';
 
 @observer
 class LoginModle extends Component {
@@ -33,11 +33,7 @@ class LoginModle extends Component {
                     sessionStorage.setItem('token', res.data.userId);
                     loginStore.toggleLogin(false);
                     loginStore.showUserName(res.data.username);
-                    loginStore.setCookie(
-                        'user',
-                        JSON.stringify(res.data),
-                        5 * 24 * 60 * 60 * 1000
-                    );
+                    loginStore.setCookie('user', JSON.stringify(res.data), 5 * 24 * 60 * 60 * 1000);
                     loginStore.rememberPw({ username, password }, checked);
                     this.setState({
                         loginMsg: '',
@@ -99,12 +95,7 @@ class LoginModle extends Component {
                         />
                     </div>
                     <div className={style.member}>
-                        <input
-                            type="checkbox"
-                            id="mem"
-                            checked={checked}
-                            onChange={this.setChecked}
-                        />
+                        <input type="checkbox" id="mem" checked={checked} onChange={this.setChecked} />
                         <label htmlFor="mem">自动登录</label>
                         <span
                             onClick={() => {

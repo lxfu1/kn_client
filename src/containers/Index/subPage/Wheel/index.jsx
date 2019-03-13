@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Code } from 'react-content-loader';
 import { NavLink } from 'react-router-dom';
 import style from './style.scss';
-import resource from 'resource';
+import resource from '@/util/resource';
 import DF from '../../images/slide3.jpg';
 
 const Wth = 750;
@@ -56,8 +56,8 @@ class Wheel extends Component {
     };
 
     LunBo = length => {
-        let currentIndex = this.state.order,
-            _length = this.state.data.length;
+        let currentIndex = this.state.order;
+        let _length = this.state.data.length;
         if (currentIndex < _length - 1) {
             currentIndex += 1;
         } else {
@@ -97,11 +97,7 @@ class Wheel extends Component {
         const { data, loading } = this.state;
         let l = data.length || 1;
         return (
-            <div
-                className={style.wheelBox}
-                onMouseEnter={this.clearTime}
-                onMouseLeave={this.setTime}
-            >
+            <div className={style.wheelBox} onMouseEnter={this.clearTime} onMouseLeave={this.setTime}>
                 <div className={style.left}>
                     {loading ? (
                         <Code />
@@ -121,17 +117,8 @@ class Wheel extends Component {
                                             this.changeImg(e, index);
                                         }}
                                     >
-                                        <NavLink
-                                            to={`/main/detail/${
-                                                item.articleId
-                                            }`}
-                                            target="_blank"
-                                        >
-                                            <img
-                                                src={item.fileUrl || DF}
-                                                onError={this.setDefault}
-                                                alt=""
-                                            />
+                                        <NavLink to={`/main/detail/${item.articleId}`} target="_blank">
+                                            <img src={item.fileUrl || DF} onError={this.setDefault} alt="" />
                                         </NavLink>
                                     </li>
                                 );
@@ -143,11 +130,7 @@ class Wheel extends Component {
                             return (
                                 <li
                                     key={index}
-                                    className={
-                                        this.state.order === index
-                                            ? style.active
-                                            : ''
-                                    }
+                                    className={this.state.order === index ? style.active : ''}
                                     onClick={e => {
                                         this.changeImg(e, index);
                                     }}

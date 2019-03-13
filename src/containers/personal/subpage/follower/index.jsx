@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { message } from 'antd';
 import { Facebook } from 'react-content-loader';
-import { HOST } from 'micro';
+import { HOST } from '@/constants/storage';
 import Pagination from 'rc-pagination';
-import resource from 'util/resource';
+import resource from '@/util/resource';
 import HD from 'static/images/hd.png';
 import style from './styles.scss';
 
@@ -26,11 +26,7 @@ class List extends Component {
     getList = () => {
         let { page } = this.state;
         resource
-            .get(
-                `/kn/attentionUser?page=${page}&size=10&type=follower&userId=${
-                    this.props.userId
-                }`
-            )
+            .get(`/kn/attentionUser?page=${page}&size=10&type=follower&userId=${this.props.userId}`)
             .then(res => {
                 if (res.status === 200) {
                     this.setState({
@@ -71,23 +67,13 @@ class List extends Component {
                     ) : list.length ? (
                         list.map(item => {
                             return (
-                                <div
-                                    key={item.userId}
-                                    className={style.flexRow}
-                                >
+                                <div key={item.userId} className={style.flexRow}>
                                     <div className={style.flexEnd}>
-                                        <img
-                                            src={item.headUrl || HD}
-                                            onError={this.setDefault}
-                                            alt=""
-                                        />
+                                        <img src={item.headUrl || HD} onError={this.setDefault} alt="" />
                                         <div className={style.inner}>
-                                            <p className={style.title}>
-                                                {item.username}
-                                            </p>
+                                            <p className={style.title}>{item.username}</p>
                                             <p>
-                                                发表文章： {item.articleCount}，评论：{' '}
-                                                {item.commentCount}
+                                                发表文章： {item.articleCount}，评论： {item.commentCount}
                                             </p>
                                         </div>
                                     </div>
@@ -98,10 +84,7 @@ class List extends Component {
                         <p>暂无数据</p>
                     )}
                 </div>
-                <div
-                    className={style.pagination}
-                    style={{ display: this.state.total > 10 ? 'flex' : 'none' }}
-                >
+                <div className={style.pagination} style={{ display: this.state.total > 10 ? 'flex' : 'none' }}>
                     <Pagination
                         current={this.state.page}
                         total={this.state.total}
