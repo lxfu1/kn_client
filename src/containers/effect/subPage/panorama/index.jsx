@@ -38,23 +38,16 @@ export default class Panorama extends Component {
             renderer = new THREE.WebGLRenderer({ antialias: true });
             // renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0)); //设置背景颜色
             renderer.setSize(
-                document.getElementById('panorama').clientWidth,
+                document.getElementById('panorama').offsetWidth,
                 document.getElementById('panorama').clientHeight
             );
-            document
-                .getElementById('panorama')
-                .appendChild(renderer.domElement);
+            document.getElementById('panorama').appendChild(renderer.domElement);
         }
 
         var camera;
 
         function initCamera() {
-            camera = new THREE.PerspectiveCamera(
-                45,
-                window.innerWidth / window.innerHeight,
-                1,
-                10000
-            );
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
             camera.position.z = 10;
         }
 
@@ -68,8 +61,8 @@ export default class Panorama extends Component {
 
         function initLight() {}
 
-        var mesh,
-            loader = new THREE.TextureLoader();
+        var mesh;
+        var loader = new THREE.TextureLoader();
 
         function initModel() {
             // 声明一个球体

@@ -9,7 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -66,8 +66,8 @@ const plugins = [
             minifyURLs: true
         }
     }),
-    //new InlineManifestWebpackPlugin('runtime'),
-    new CopyWebpackPlugin([{ from: path.resolve('src/static/js'), to: 'thr' }])
+    // new InlineManifestWebpackPlugin('runtime'),
+    new CopyWebpackPlugin([{ from: path.resolve('src/static/js'), to: 'thr' }]),
     new FriendlyErrorsWebpackPlugin()
 ];
 
@@ -86,10 +86,7 @@ module.exports = {
         publicPath: webpackConfig.publicPath,
         filename: 'assets/js/[name].[chunkhash].js',
         chunkFilename: 'assets/js/[name].[chunkhash].js',
-        devtoolModuleFilenameTemplate: info =>
-            path
-                .relative(srcPath, info.absoluteResourcePath)
-                .replace(/\\/g, '/')
+        devtoolModuleFilenameTemplate: info => path.relative(srcPath, info.absoluteResourcePath).replace(/\\/g, '/')
     },
     resolve: {
         extensions: ['.js', '.jsx'],
@@ -293,5 +290,4 @@ module.exports = {
         ]
     },
     plugins: plugins
-
 };

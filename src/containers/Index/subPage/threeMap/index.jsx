@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { LOCATIONS, IMAGE_URLS } from './sub/constants';
-import {deepCopy} from 'utils'
+import { deepCopy } from 'utils';
 
 export default class Earth extends Component {
     constructor(props) {
@@ -23,14 +23,14 @@ export default class Earth extends Component {
     componentDidMount() {
         this.initDom(this.props.words);
 
-        window.onresize =  ()=> {
+        window.onresize = () => {
             document.querySelector('#canvas-frame').innerHTML = '';
             this.initDom(this.points);
-        }
+        };
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.words.length && JSON.stringify(nextProps.words) !== JSON.stringify(this.props.words)){
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.words.length && JSON.stringify(nextProps.words) !== JSON.stringify(this.props.words)) {
             this.clearDom();
             this.points = deepCopy(nextProps.words);
             this.initCloud(nextProps.words);
@@ -38,17 +38,17 @@ export default class Earth extends Component {
     }
 
     clearDom = () => {
-        if(this.event){
+        if (this.event) {
             this.event.removeAll();
         }
-        if(this.clickList.length){
+        if (this.clickList.length) {
             this.clickList.map(item => {
                 item.off('click');
             });
         }
-    }
+    };
 
-    initDom = (data) => {
+    initDom = data => {
         this.initCanvas();
         this.initRenderer();
         this.initCamera();
@@ -57,13 +57,13 @@ export default class Earth extends Component {
         this.initEarth();
         this.initCloud(data);
         this.animate();
-    }
+    };
 
     initCanvas = () => {
-        let canvas,
-            ctx,
-            width = 2048,
-            height = 512;
+        let canvas;
+        let ctx;
+        let width = 2048;
+        let height = 512;
 
         canvas = document.createElement('canvas');
         canvas.id = 'cvs';
@@ -83,14 +83,14 @@ export default class Earth extends Component {
     initRenderer = () => {
         let renderer;
 
-        this.width = document.getElementById('canvas-frame').clientWidth;
+        this.width = document.getElementById('canvas-frame').offsetWidth;
         this.height = document.getElementById('canvas-frame').clientHeight;
         renderer = new THREE.WebGLRenderer({
             alpha: true,
             antialias: true,
             preserveDrawingBuffer: true
         });
-        //renderer.setPixelRatio( window.devicePixelRatio);
+        // renderer.setPixelRatio( window.devicePixelRatio);
         renderer.setSize(this.width, this.height);
         document.getElementById('canvas-frame').appendChild(renderer.domElement);
         renderer.setClearColor(0x071732, 0);
@@ -125,7 +125,7 @@ export default class Earth extends Component {
     initLight = () => {
         let light;
 
-        light = new THREE.PointLight(0x252f56, 1, 500 );
+        light = new THREE.PointLight(0x252f56, 1, 500);
         light.position.set(100, 100, 200);
         this.scene.add(light);
 
@@ -145,7 +145,7 @@ export default class Earth extends Component {
         this.group.add(mesh);
     };
 
-    initCloud = (data) => {
+    initCloud = data => {
         let loader, geometry, material, mesh;
 
         loader = new THREE.TextureLoader();
@@ -162,9 +162,9 @@ export default class Earth extends Component {
             mesh.position.set(0, 0, 0);
             this.group.add(mesh);
 
-            //绑定点击事件
+            // 绑定点击事件
             this.event = new THREE.onEvent(this.scene, this.camera, this.callBack);
-            //data = data.splice(0, 20); //最多20个点
+            // data = data.splice(0, 20); //最多20个点
             data.forEach((item, index) => {
                 let sprite = this.createLocationSprite(item, index);
 
@@ -178,38 +178,38 @@ export default class Earth extends Component {
     };
 
     createLocationSprite = (item, i) => {
-        //创建一个圆形的材质，记得一定要加上texture.needsUpdate = true;
-        let canvas,
-            ctx,
-            texture,
-            spriteMaterial,
-            sprite,
-            lags,
-            fontSize = 24,
-            w = item.area.length * fontSize > 64 ? item.area.length * fontSize : 64,
-            h = w + 10,
-            r = 15,
-            gradient;
+        // 创建一个圆形的材质，记得一定要加上texture.needsUpdate = true;
+        let canvas;
+        let ctx;
+        let texture;
+        let spriteMaterial;
+        let sprite;
+        let lags;
+        let fontSize = 24;
+        let w = item.area.length * fontSize > 64 ? item.area.length * fontSize : 64;
+        let h = w + 10;
+        let r = 15;
+        let gradient;
 
         // 渐变
         gradient = this.ctx.createRadialGradient(w / 2, 10 + r, 5, w / 2, 10 + r, 15);
         gradient.addColorStop(0, '#fff');
         gradient.addColorStop(1, 'red');
 
-        canvas= document.createElement("canvas");
-        ctx = canvas.getContext("2d");
+        canvas = document.createElement('canvas');
+        ctx = canvas.getContext('2d');
         canvas.width = w;
         canvas.height = h;
-        ctx.fillStyle =  gradient || '#fff';
+        ctx.fillStyle = gradient || '#fff';
         ctx.shadowBlur = 10;
         ctx.shadowColor = '#fff';
-        ctx.arc(w / 2, 10 + r, r, 0, 2*Math.PI);
+        ctx.arc(w / 2, 10 + r, r, 0, 2 * Math.PI);
         ctx.fill();
 
         ctx.beginPath();
-        ctx.font=`${fontSize}px Georgia`;
+        ctx.font = `${fontSize}px Georgia`;
         ctx.fillStyle = 'red';
-        ctx.fillText(item.area, w / 2 - item.area.length * fontSize / 2, h -  fontSize / 2);
+        ctx.fillText(item.area, w / 2 - (item.area.length * fontSize) / 2, h - fontSize / 2);
 
         texture = new THREE.Texture(canvas);
         texture.needsUpdate = true;
@@ -225,20 +225,20 @@ export default class Earth extends Component {
         sprite.position.set(lags.x, lags.y, lags.z);
         sprite.scale.set(15, 15, 15);
 
-        //sprite.position.normalize();
+        // sprite.position.normalize();
         sprite.on('click');
         this.clickList.push(sprite);
-        return sprite
+        return sprite;
     };
 
     LngLat2Coordinate = (lng, lat, radius) => {
         let lngLat, l, x, y, z;
 
         lngLat = { lng: lng, lat: lat };
-        l = radius * Math.cos(lngLat.lat / 180 * Math.PI);
-        x = l * Math.sin(lngLat.lng / 180 * Math.PI);
-        y = radius * Math.sin(lngLat.lat / 180 * Math.PI);
-        z = l * Math.cos(lngLat.lng / 180 * Math.PI);
+        l = radius * Math.cos((lngLat.lat / 180) * Math.PI);
+        x = l * Math.sin((lngLat.lng / 180) * Math.PI);
+        y = radius * Math.sin((lngLat.lat / 180) * Math.PI);
+        z = l * Math.cos((lngLat.lng / 180) * Math.PI);
 
         return { x: x, y: y, z: z };
     };
@@ -251,7 +251,7 @@ export default class Earth extends Component {
     };
 
     animate = () => {
-        if(this.active){
+        if (this.active) {
             this.group.rotation.y += 0.001;
             requestAnimationFrame(this.animate);
             this.renderer.clear();
@@ -259,7 +259,7 @@ export default class Earth extends Component {
         }
     };
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         this.active = false;
         this.event.removeAll();
         this.clickList.map(item => {

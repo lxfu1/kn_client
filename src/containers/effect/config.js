@@ -47,6 +47,27 @@ const cards = [
         title: '3D全景图',
         link: '/main/effect/panorama',
         color: '#fff'
+    },
+    {
+        src: require('./images/bezier.png'),
+        height: 250,
+        title: '自定义贝塞尔曲线',
+        link: '/main/effect/curve',
+        color: '#fff'
+    },
+    {
+        src: require('./images/arrow.png'),
+        height: 350,
+        title: '箭头',
+        link: '/main/effect/arrow',
+        color: '#fff'
+    },
+    {
+        src: require('./images/tree.png'),
+        height: 230,
+        title: 'hTree',
+        link: '/main/effect/sTree',
+        color: '#fff'
     }
 ];
 

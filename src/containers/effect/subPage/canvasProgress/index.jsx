@@ -25,7 +25,7 @@ class Progress extends Component {
     constructor() {
         super();
         this.particles = [];
-        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
+        this.w = window.screen.width > 1280 ? document.body.offsetWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.padding = 50;
         this.ctx = null;
@@ -105,9 +105,7 @@ class Progress extends Component {
     render() {
         return (
             <div className={styles.container}>
-                <canvas id="canvas">
-                    Canvas is not supported in your browser.
-                </canvas>
+                <canvas id="canvas">Canvas is not supported in your browser.</canvas>
             </div>
         );
     }

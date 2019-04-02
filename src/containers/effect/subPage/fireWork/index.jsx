@@ -31,14 +31,7 @@ class Particle {
 
         this.ctx.lineTo(this.x, this.y);
         this.ctx.lineWidth = this.w;
-        this.ctx.strokeStyle =
-            'hsla(' +
-            this.hue +
-            ', 100%, ' +
-            this.brightness +
-            '%, ' +
-            this.alpha +
-            ')';
+        this.ctx.strokeStyle = 'hsla(' + this.hue + ', 100%, ' + this.brightness + '%, ' + this.alpha + ')';
         this.ctx.stroke();
     }
     random(min, max) {
@@ -59,7 +52,7 @@ class FireWork extends Component {
     constructor() {
         super();
         this.particles = [];
-        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
+        this.w = window.screen.width > 1280 ? document.body.offsetWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.padding = 50;
         this.ctx = null;

@@ -26,10 +26,7 @@ class Particle {
         linear.addColorStop(1, '#fff');
         ctx.strokeStyle = linear;
         ctx.moveTo(this.x, this.y);
-        ctx.lineTo(
-            this.x + this.w * Math.cos(this.angle),
-            this.y + this.w * Math.sin(this.angle)
-        );
+        ctx.lineTo(this.x + this.w * Math.cos(this.angle), this.y + this.w * Math.sin(this.angle));
         ctx.stroke();
         ctx.closePath();
     }
@@ -76,7 +73,7 @@ class FallStar extends Component {
         super();
         this.particles = [];
         this.stars = [];
-        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
+        this.w = window.screen.width > 1280 ? document.body.offsetWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.padding = 50;
         this.ctx = null;
@@ -104,19 +101,11 @@ class FallStar extends Component {
         if (this.particles.length < 10) {
             let particleCount = 1;
             while (particleCount--) {
-                this.particles.push(
-                    new Particle(this.ctx, this.random(0, this.w * 2 / 3), 0)
-                );
+                this.particles.push(new Particle(this.ctx, this.random(0, (this.w * 2) / 3), 0));
             }
         }
         if (this.stars.length < 50) {
-            this.stars.push(
-                new Star(
-                    this.ctx,
-                    this.random(0, this.w),
-                    this.random(0, this.h)
-                )
-            );
+            this.stars.push(new Star(this.ctx, this.random(0, this.w), this.random(0, this.h)));
         }
         this.update();
         // setInterval(() => {

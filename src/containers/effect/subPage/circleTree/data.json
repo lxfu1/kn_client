@@ -1,0 +1,104 @@
+{
+    "name": "Modeling Methods",
+    "level": 0,
+    "maxLevel": 3,
+    "levleNumbers": 1,
+    "children": [
+        {
+            "name": "Classification",
+            "children": [
+                {
+                    "name": "Logistic regression",
+                    "children": [
+                        { "name": "Classifier selection" },
+                        {
+                            "name": "Classifier fusion"
+                        }
+                    ]
+                },
+                { "name": "Linear discriminant analysis" },
+                { "name": "Rules" },
+                { "name": "Decision trees" },
+                { "name": "Naive Bayes" },
+                { "name": "K nearest neighbor" },
+                { "name": "Probabilistic neural network" },
+                {
+                    "name": "bbd",
+                    "children": [
+                        { "name": "Classifier selection" },
+                        {
+                            "name": "Classifier fusion"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Consensus",
+            "children": [
+                {
+                    "name": "Models diversity",
+                    "children": [
+                        { "name": "Different initializations" },
+                        { "name": "Different parameter choices" },
+                        { "name": "Different architectures" },
+                        { "name": "Different modeling methods" },
+                        { "name": "Different training sets" },
+                        {
+                            "name": "Different feature sets",
+                            "children": [
+                                { "name": "Classifier selection" },
+                                {
+                                    "name": "Classifier fusion"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Methods",
+                    "children": [
+                        { "name": "Classifier selection" },
+                        {
+                            "name": "Classifier fusion"
+                        }
+                    ]
+                },
+                {
+                    "name": "Common",
+                    "children": [
+                        { "name": "Bagging" },
+                        {
+                            "name": "Boosting",
+                            "children": [
+                                { "name": "Classifier selection" },
+                                {
+                                    "name": "Classifier fusion"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "AdaBoost",
+                            "children": [
+                                { "name": "Classifier selection" },
+                                {
+                                    "name": "Classifier fusion"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Regression",
+            "children": [
+                { "name": "Multiple linear regression" },
+                { "name": "Partial least squares" },
+                { "name": "Multi-layer feedforward neural network" },
+                { "name": "General regression neural network" },
+                { "name": "Support vector regression" }
+            ]
+        }
+    ]
+}

@@ -221,7 +221,7 @@ export default class Blob extends Component {
                     }}
                     plugins={['uploadImage', 'insertCode']}
                     uploadImage={this.uploadImage}
-                    ueditorPath={process.env.NODE_ENV === 'development' ? 'static/lib/ueditor' : 'lib/ueditor'}
+                    ueditorPath={process.env.NODE_ENV === 'development' ? '/lib/ueditor' : 'lib/ueditor'}
                     value=""
                 />
                 <Modal

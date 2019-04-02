@@ -90,10 +90,10 @@ export default class Earth extends Component {
     };
 
     initCanvas = () => {
-        let canvas,
-            ctx,
-            width = 2048,
-            height = 512;
+        let canvas;
+        let ctx;
+        let width = 2048;
+        let height = 512;
 
         canvas = document.createElement('canvas');
         canvas.id = 'cvs';
@@ -112,7 +112,7 @@ export default class Earth extends Component {
     initRenderer = () => {
         let renderer;
 
-        this.width = document.getElementById('canvas-frame').clientWidth;
+        this.width = document.getElementById('canvas-frame').offsetWidth;
         this.height = document.getElementById('canvas-frame').clientHeight;
         renderer = new THREE.WebGLRenderer({
             alpha: true,
@@ -121,9 +121,7 @@ export default class Earth extends Component {
         });
         // renderer.setPixelRatio( window.devicePixelRatio);
         renderer.setSize(this.width, this.height);
-        document
-            .getElementById('canvas-frame')
-            .appendChild(renderer.domElement);
+        document.getElementById('canvas-frame').appendChild(renderer.domElement);
         renderer.setClearColor(0x071732, 0);
         this.renderer = renderer;
     };
@@ -131,12 +129,7 @@ export default class Earth extends Component {
     initCamera = () => {
         let camera;
 
-        camera = new THREE.PerspectiveCamera(
-            45,
-            this.width / this.height,
-            1,
-            10000
-        );
+        camera = new THREE.PerspectiveCamera(45, this.width / this.height, 1, 10000);
         camera.position.x = 0;
         camera.position.y = 0;
         camera.position.z = 400;
@@ -202,11 +195,7 @@ export default class Earth extends Component {
             this.group.add(mesh);
 
             // 绑定点击事件
-            this.event = new THREE.onEvent(
-                this.scene,
-                this.camera,
-                this.callBack
-            );
+            this.event = new THREE.onEvent(this.scene, this.camera, this.callBack);
             // data = data.splice(0, 20); //最多20个点
             data.forEach((item, index) => {
                 let sprite = this.createLocationSprite(item, index);
@@ -222,16 +211,16 @@ export default class Earth extends Component {
 
     createLocationSprite = (item, i) => {
         // 创建一个圆形的材质，记得一定要加上texture.needsUpdate = true;
-        let canvas,
-            ctx,
-            texture,
-            spriteMaterial,
-            sprite,
-            lags,
-            w = 64,
-            h = 70,
-            r = 15,
-            fontSize = 16;
+        let canvas;
+        let ctx;
+        let texture;
+        let spriteMaterial;
+        let sprite;
+        let lags;
+        let w = 64;
+        let h = 70;
+        let r = 15;
+        let fontSize = 16;
 
         canvas = document.createElement('canvas');
         ctx = canvas.getContext('2d');
@@ -245,11 +234,7 @@ export default class Earth extends Component {
         ctx.beginPath();
         ctx.font = `${fontSize}px Georgia`;
         ctx.fillStyle = item.queryEnable === '1' ? '#fff' : '#a7a6aa';
-        ctx.fillText(
-            item.keyword,
-            w / 2 - item.keyword.length * fontSize / 2,
-            h - fontSize / 2
-        );
+        ctx.fillText(item.keyword, w / 2 - (item.keyword.length * fontSize) / 2, h - fontSize / 2);
 
         texture = new THREE.Texture(canvas);
         texture.needsUpdate = true;
@@ -261,11 +246,7 @@ export default class Earth extends Component {
         });
         sprite = new THREE.Sprite(spriteMaterial);
         sprite.name = item.keyword;
-        lags = this.LngLat2Coordinate(
-            LOCATIONS[i].coord[0],
-            LOCATIONS[i].coord[1],
-            136
-        );
+        lags = this.LngLat2Coordinate(LOCATIONS[i].coord[0], LOCATIONS[i].coord[1], 136);
         sprite.position.set(lags.x, lags.y, lags.z);
         sprite.scale.set(15, 15, 15);
 
@@ -279,10 +260,10 @@ export default class Earth extends Component {
         let lngLat, l, x, y, z;
 
         lngLat = { lng: lng, lat: lat };
-        l = radius * Math.cos(lngLat.lat / 180 * Math.PI);
-        x = l * Math.sin(lngLat.lng / 180 * Math.PI);
-        y = radius * Math.sin(lngLat.lat / 180 * Math.PI);
-        z = l * Math.cos(lngLat.lng / 180 * Math.PI);
+        l = radius * Math.cos((lngLat.lat / 180) * Math.PI);
+        x = l * Math.sin((lngLat.lng / 180) * Math.PI);
+        y = radius * Math.sin((lngLat.lat / 180) * Math.PI);
+        z = l * Math.cos((lngLat.lng / 180) * Math.PI);
 
         return { x: x, y: y, z: z };
     };
@@ -316,10 +297,7 @@ export default class Earth extends Component {
         // 请勿更改容器ID
         return (
             <div className={style.container}>
-                <div
-                    id="canvas-frame"
-                    style={{ width: '100%', height: '100%' }}
-                />
+                <div id="canvas-frame" style={{ width: '100%', height: '100%' }} />
             </div>
         );
     }

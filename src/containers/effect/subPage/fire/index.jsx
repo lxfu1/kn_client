@@ -16,14 +16,7 @@ class Particle {
     draw() {
         const ctx = this.ctx;
         ctx.beginPath();
-        const grd = ctx.createRadialGradient(
-            this.x,
-            this.y,
-            this.radius,
-            this.x,
-            this.y - this.radius / 2,
-            0
-        );
+        const grd = ctx.createRadialGradient(this.x, this.y, this.radius, this.x, this.y - this.radius / 2, 0);
         grd.addColorStop(0, 'rgb( 15, 5, 2 )');
         grd.addColorStop(1, 'rgb( 30, 10, 2 )');
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
@@ -54,7 +47,7 @@ class Fire extends Component {
     constructor() {
         super();
         this.particles = [];
-        this.w = window.screen.width > 1280 ? document.body.clientWidth : 1280;
+        this.w = window.screen.width > 1280 ? document.body.offsetWidth : 1280;
         this.h = document.body.clientHeight - 60;
         this.x = this.w / 2;
         this.y = this.h - 150;

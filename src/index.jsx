@@ -8,11 +8,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 import * as stores from './store';
 
-import './static/scss/app.scss';
+import './static/scss/app.global.scss';
 import 'rodal/lib/rodal.css';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import 'react-datetime/css/react-datetime.css';
 
 import Routes from './routes';
 

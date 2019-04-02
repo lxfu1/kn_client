@@ -119,7 +119,7 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             name: 'fonts/[name].[ext]',
-                            limit: webpackConfig.imgLimit
+                            limit: 1000
                         }
                     }
                 ]
@@ -195,6 +195,9 @@ module.exports = {
             favicon: './src/static/images/favicon.ico'
         }),
         new InlineManifestWebpackPlugin('runtime'),
-        new CopyWebpackPlugin([{ from: path.resolve('src/static/js'), to: 'thr' }])
+        new CopyWebpackPlugin([
+            { from: path.resolve('src/static/js'), to: 'thr' },
+            { from: path.resolve('src/static/lib'), to: 'lib' }
+        ])
     ]
 };
